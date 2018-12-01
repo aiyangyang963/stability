@@ -1,0 +1,166 @@
+`timescale 1 ps / 1 ps
+module ddr_control_ads(
+		input clk,
+		input test_complete,
+		
+		output wire [24:0] user0_avl_address,             //user0_avl.address
+		output reg         user0_avl_write,               //.write
+		output reg         user0_avl_read,                //.read
+		input  wire[63:0]  user0_avl_readdata,             //.readdata
+		output reg [63:0]  user0_avl_writedata,           //.writedata
+		output reg         user0_avl_beginbursttransfer,  //.beginbursttransfer
+		output wire[3:0]   user0_avl_burstcount,           //.burstcount
+		output wire[7:0]   user0_avl_byteenable,           //.byteenable
+		input  wire        user0_avl_readdatavalid,       //.readdatavalid
+		input  wire        user0_avl_waitrequest,          //.waitrequest_n
+		
+		input 	  [3:0]	 ddr_ads_enable
+	);
+
+parameter BURSTCOUNT=1;
+
+assign user0_avl_address = user0_ddr_add;
+
+wire 	pos_test_brust8_enable,neg_test_brust8_enable;
+reg test_brust8_enable_r0,test_brust8_enable_r1,test_brust8_enable_r2;
+always@(posedge clk)
+	begin
+		test_brust8_enable_r0<=test_brust8_enable;
+		test_brust8_enable_r1<=test_brust8_enable_r0;
+		test_brust8_enable_r2<=test_brust8_enable_r1;
+	end
+
+assign pos_test_brust8_enable=(~test_brust8_enable_r2)&test_brust8_enable_r1;
+assign neg_test_brust8_enable=test_brust8_enable_r2&(~test_brust8_enable_r1);   
+	
+assign user0_avl_burstcount=BURSTCOUNT+1;         		//.burstcount
+assign user0_avl_byteenable=8'b1111_1111;    //.byteenable
+		
+(* syn_preserve = 1 *)reg [7:0] brust_state=10;
+reg [7:0] brust_cnt=BURSTCOUNT;
+reg [7:0] operate_interval=7;
+reg [7:0] atom_interval=100;
+always@(posedge clk)
+	begin
+		case(brust_state)
+				0:begin
+					if(pos_test_brust8_enable)
+						begin
+							if(user0_avl_waitrequest)
+								begin
+									user0_avl_write<=1;
+									user0_avl_beginbursttransfer<=1;
+									brust_state<=1;
+								end
+							else
+								begin
+									user0_avl_write<=0;
+									user0_avl_beginbursttransfer<=0;
+									brust_state<=0;
+								end
+						end
+					else
+						begin
+							user0_avl_write<=0;
+							user0_avl_beginbursttransfer<=0;
+							brust_state<=0;
+						end
+					  end
+				1:begin
+					user0_avl_beginbursttransfer<=0;
+					if(user0_avl_waitrequest)
+						begin
+							if(brust_cnt==0)
+								begin
+									brust_state<=2;
+									user0_avl_write<=0;
+									brust_cnt<=BURSTCOUNT;
+									user0_avl_writedata<=user0_avl_writedata;
+								end
+							else
+								begin
+									brust_state<=1;
+									user0_avl_write<=1;
+									brust_cnt<=brust_cnt-1;
+									user0_avl_writedata<=user0_avl_writedata+1;
+								end
+						end
+					else
+						begin
+							user0_avl_write<=user0_avl_write;
+							brust_cnt<=brust_cnt;
+							brust_state<=1;
+						end
+					
+					  end
+				2:begin
+						if(operate_interval==0)
+							begin
+								operate_interval<=7;
+								brust_state<=3;
+							end
+						else
+							begin
+								operate_interval<=operate_interval-1;
+								brust_state<=2;
+							end
+
+					  end
+				3:begin	
+						if(user0_avl_waitrequest)
+							begin
+								user0_avl_beginbursttransfer<=1;
+								user0_avl_read<=1;
+								brust_state<=4;
+							end
+						else
+							begin
+								user0_avl_beginbursttransfer<=0;
+								user0_avl_read<=0;
+								brust_state<=3;
+							end
+				     end
+				4:begin
+						user0_avl_beginbursttransfer<=0;
+						user0_avl_read<=0;
+						brust_state<=5;
+					end
+				5:begin
+						if(atom_interval==0)
+							begin
+								atom_interval<=100;
+								brust_state<=0;							
+							end
+						else
+							begin
+								atom_interval<=atom_interval-1;
+								brust_state<=5;
+							end
+//						if(atom_interval==50)user0_avl_address<=user0_avl_address+8;
+					end
+				10:begin
+						if((test_complete)&&(user0_avl_waitrequest))brust_state<=0;
+						else brust_state<=10;
+						brust_cnt<=BURSTCOUNT;
+						operate_interval<=7;
+						atom_interval<=100;
+//						user0_avl_address<=0;
+						user0_avl_write<=0;
+						user0_avl_read<=0;
+						user0_avl_beginbursttransfer<=0;
+						user0_avl_writedata<=0;
+					end
+				default:begin
+						brust_state<=10;
+						brust_cnt<=BURSTCOUNT;
+						operate_interval<=7;
+						atom_interval<=100;
+//						user0_avl_address<=0;
+						user0_avl_write<=0;
+						user0_avl_read<=0;
+						user0_avl_writedata<=0;
+					  end
+		endcase
+	end
+	
+endmodule

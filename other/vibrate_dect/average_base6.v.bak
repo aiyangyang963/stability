@@ -1,0 +1,145 @@
+`timescale 1ns / 1ns
+module average_base6(
+    input clk,rst,
+	 	 
+	 input [15:0]Data0,
+	 input [15:0]Data1,
+	 input [15:0]Data2,
+	 input [15:0]Data3,
+	 input Data0_en,
+	 input Data1_en,
+	 input Data2_en,
+	 input Data3_en,
+	 
+	 output reg[15:0]AData0,
+	 output reg[15:0]AData1,
+	 output reg[15:0]AData2,
+	 output reg[15:0]AData3,
+	 output reg AData0_en,
+	 output reg AData1_en,
+	 output reg AData2_en,
+	 output reg AData3_en
+	 );
+
+wire pos_Data0_en,neg_Data0_en;
+wire pos_Data1_en,neg_Data1_en;
+wire pos_Data2_en,neg_Data2_en;
+wire pos_Data3_en,neg_Data3_en;
+reg Data0_en_r0,Data0_en_r1,Data0_en_r2;
+reg Data1_en_r0,Data1_en_r1,Data1_en_r2;
+reg Data2_en_r0,Data2_en_r1,Data2_en_r2;
+reg Data3_en_r0,Data3_en_r1,Data3_en_r2;
+always@(posedge clk)
+	begin
+		Data0_en_r0<=Data0_en;
+		Data0_en_r1<=Data0_en_r0;
+		Data0_en_r2<=Data0_en_r1;
+		
+		Data1_en_r0<=Data1_en;
+		Data1_en_r1<=Data1_en_r0;
+		Data1_en_r2<=Data1_en_r1;
+		
+		Data2_en_r0<=Data2_en;
+		Data2_en_r1<=Data2_en_r0;
+		Data2_en_r2<=Data2_en_r1;
+		
+		Data3_en_r0<=Data3_en;
+		Data3_en_r1<=Data3_en_r0;
+		Data3_en_r2<=Data3_en_r1;
+	end
+
+assign pos_Data0_en=(~Data0_en_r2)&Data0_en_r1;
+assign pos_Data1_en=(~Data1_en_r2)&Data1_en_r1;
+assign pos_Data2_en=(~Data2_en_r2)&Data2_en_r1;
+assign pos_Data3_en=(~Data3_en_r2)&Data3_en_r1;
+
+assign neg_Data0_en=Data0_en_r2&(~Data0_en_r1); 
+assign neg_Data1_en=Data1_en_r2&(~Data1_en_r1); 
+assign neg_Data2_en=Data2_en_r2&(~Data2_en_r1); 
+assign neg_Data3_en=Data3_en_r2&(~Data3_en_r1); 
+
+always@(posedge clk)
+	begin
+		AData0_en<=Data0_en;
+		AData1_en<=Data1_en;
+		AData2_en<=Data2_en;
+		AData3_en<=Data3_en;
+	end
+	 
+reg [DATAWIDTH-1:0]Data0_r0,Data1_r0,Data2_r0,Data3_r0;	 
+reg [DATAWIDTH-1:0]Data0_r1,Data1_r1,Data2_r1,Data3_r1;	
+reg [DATAWIDTH-1:0]Data0_r2,Data1_r2,Data2_r2,Data3_r2;	
+reg [DATAWIDTH-1:0]Data0_r3,Data1_r3,Data2_r3,Data3_r3;
+reg [DATAWIDTH-1:0]Data0_r4,Data1_r4,Data2_r4,Data3_r4;
+always@(posedge clk)
+	begin
+		if(pos_Data0_en)
+			begin
+				Data0_r0<=Data0;
+				Data0_r1<=Data0_r0;
+				Data0_r2<=Data0_r1;
+				Data0_r3<=Data0_r2;
+				Data0_r4<=Data0_r3;
+			end
+		else 
+			begin
+				Data0_r0<=Data0_r0;
+				Data0_r1<=Data0_r1;
+				Data0_r2<=Data0_r2;
+				Data0_r3<=Data0_r3;
+				Data0_r4<=Data0_r4;
+			end
+			
+		if(pos_Data1_en)
+			begin
+				Data1_r0<=Data1;
+				Data1_r1<=Data1_r0;
+				Data1_r2<=Data1_r1;
+				Data1_r3<=Data1_r2;
+				Data1_r4<=Data1_r3;
+			end
+		else 
+			begin
+				Data1_r0<=Data1_r0;
+				Data1_r1<=Data1_r1;
+				Data1_r2<=Data1_r2;
+				Data1_r3<=Data1_r3;
+				Data1_r4<=Data1_r4;
+			end
+			
+		if(pos_Data2_en)
+			begin
+				Data2_r0<=Data2;
+				Data2_r1<=Data2_r0;
+				Data2_r2<=Data2_r1;
+				Data2_r3<=Data2_r2;
+				Data2_r4<=Data2_r3;
+			end
+		else 
+			begin
+				Data2_r0<=Data2_r0;
+				Data2_r1<=Data2_r1;
+				Data2_r2<=Data2_r2;
+				Data2_r3<=Data2_r3;
+				Data2_r4<=Data2_r4;
+			end
+			
+		if(pos_Data3_en)
+			begin
+				Data3_r0<=Data3;
+				Data3_r1<=Data3_r0;
+				Data3_r2<=Data3_r1;
+				Data3_r3<=Data3_r2;
+				Data3_r4<=Data3_r3;
+			end
+		else 
+			begin
+				Data3_r0<=Data3_r0;
+				Data3_r1<=Data3_r1;
+				Data3_r2<=Data3_r2;
+				Data3_r3<=Data3_r3;
+				Data3_r4<=Data3_r4;
+			end
+	end
+	
+endmodule

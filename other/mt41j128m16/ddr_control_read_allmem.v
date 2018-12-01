@@ -1,0 +1,113 @@
+`timescale 1 ns / 1 ns
+module ddr_control_read_allmem(
+		input clk,
+		input test_complete,
+		
+
+		output reg  [24:0] user0_avl_address,             //user0_avl.address
+		output wire        user0_avl_write,               //.write
+		output reg         user0_avl_read,                //.read
+		input  wire[63:0]  user0_avl_readdata,             //.readdata
+		output wire [63:0] user0_avl_writedata,           //.writedata
+		output reg         user0_avl_beginbursttransfer,  //.beginbursttransfer
+		output wire[3:0]   user0_avl_burstcount,           //.burstcount
+		output wire[7:0]   user0_avl_byteenable,           //.byteenable
+		input  wire        user0_avl_readdatavalid,       //.readdatavalid
+		input  wire        user0_avl_waitrequest,          //.waitrequest_n
+		
+		input 	  [24:0]	 user0_ddr_add,
+		input 				 user0_takeout_datvalid
+	);
+ parameter read_ddr_stradd	    = 25'h000_0000;//block4
+ parameter read_ddr_endadd	    = 25'h100_0000;//block4	
+ 
+ assign user0_avl_write = 0;
+ assign user0_avl_writedata = 0;
+ 
+wire 	pos_user0_takeout_datvalid,neg_user0_takeout_datvalid;
+reg user0_takeout_datvalid_r0,user0_takeout_datvalid_r1,user0_takeout_datvalid_r2;
+always@(posedge clk)
+	begin
+		user0_takeout_datvalid_r0<=user0_takeout_datvalid;
+		user0_takeout_datvalid_r1<=user0_takeout_datvalid_r0;
+		user0_takeout_datvalid_r2<=user0_takeout_datvalid_r1;
+	end
+
+assign pos_user0_takeout_datvalid=(~user0_takeout_datvalid_r2)&user0_takeout_datvalid_r1;
+assign neg_user0_takeout_datvalid=user0_takeout_datvalid_r2&(~user0_takeout_datvalid_r1);   
+	
+assign user0_avl_burstcount=4;         		//.burstcount
+assign user0_avl_byteenable=8'b1111_1111;    //.byteenable
+		
+(* syn_preserve = 1 *)reg [7:0] rallmem_state=10;
+reg [7:0] atom_interval=100;
+always@(posedge clk)
+	begin
+		case(rallmem_state)
+				0:begin
+					user0_avl_address<=read_ddr_stradd;
+					atom_interval<=100;
+					user0_avl_read<=0;
+					user0_avl_beginbursttransfer<=0;
+					if(pos_user0_takeout_datvalid)rallmem_state<=3;
+					else rallmem_state<=0;
+					  end
+				3:begin	
+						user0_avl_beginbursttransfer<=1;
+						user0_avl_read<=1;
+						rallmem_state<=4;
+				     end
+				4:begin
+						user0_avl_beginbursttransfer<=0;
+						if(user0_avl_waitrequest)begin
+							user0_avl_read<=0;
+							rallmem_state<=5;end
+						else begin
+							user0_avl_read<=user0_avl_read;
+							rallmem_state<=4;end
+					end
+				5:begin
+						if(atom_interval==0)
+							begin
+								atom_interval<=100;
+								if(user0_avl_waitrequest)
+									begin
+										if(user0_avl_address==read_ddr_endadd)
+											begin
+												user0_avl_address<=read_ddr_stradd;
+												rallmem_state<=0;
+											end
+										else
+											begin
+												user0_avl_address<=user0_avl_address+4;
+												rallmem_state<=3;
+//												rallmem_state<=0;
+											end
+									end
+								else rallmem_state<=5;
+							end
+						else
+							begin
+								atom_interval<=atom_interval-1;
+								rallmem_state<=5;
+							end
+					end
+				10:begin
+						if((test_complete)&&(user0_avl_waitrequest))rallmem_state<=0;
+						else rallmem_state<=10;
+						atom_interval<=100;
+						user0_avl_address<=read_ddr_stradd;
+						user0_avl_read<=0;
+						user0_avl_beginbursttransfer<=0;
+					end
+				default:begin
+						rallmem_state<=10;
+						atom_interval<=100;
+						user0_avl_address<=read_ddr_stradd;
+						user0_avl_read<=0;
+						user0_avl_beginbursttransfer<=0;
+					  end
+		endcase
+	end
+	
+endmodule

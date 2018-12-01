@@ -1,0 +1,8 @@
+	component trouble_detect_enable is
+		port (
+			source_clk : in  std_logic                    := 'X'; -- clk
+			source     : out std_logic_vector(3 downto 0);        -- source
+			source_ena : in  std_logic                    := 'X'  -- source_ena
+		);
+	end component trouble_detect_enable;
+

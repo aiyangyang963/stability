@@ -1,0 +1,206 @@
+`timescale 1ns / 1ns
+//////////////////////////////////////////////////////////////////////////////////
+module AD2(
+    output wire  AD_CS,AD_SCLK,AD_SDO,
+	 input AD_SDI,RESETN,clk,
+	 
+	 output reg [15:0]pkg_num,
+	 output reg [15:0]receive_data
+    );
+
+reg csn,dout;
+wire din;
+
+wire sclk = (~csn)?clk:0;
+assign AD_SCLK = sclk;
+assign AD_CS = csn;
+assign AD_SDO = dout;
+assign din = AD_SDI;
+//spi tx model
+(* syn_preserve = 1 *)reg [7:0]cmd_length,wait_length,pkg_interval;
+reg channel_flag=0;
+reg [15:0]cmd_temp_00,cmd_temp_01,cmd_temp_02,cmd_temp_03,cmd_temp_04,cmd_temp_05,cmd_temp_06,cmd_temp_07;
+reg [15:0]cmd_temp_08,cmd_temp_09,cmd_temp_0a,cmd_temp_0b,cmd_temp_0c,cmd_temp_0d,cmd_temp_0e,cmd_temp_0f;
+reg [15:0]cmd_temp_10,cmd_temp_11,cmd_temp_12,cmd_temp_13,cmd_temp_14,cmd_temp_15,cmd_temp_16,cmd_temp_17;
+reg [15:0]cmd_temp_18,cmd_temp_19,cmd_temp_1a,cmd_temp_1b,cmd_temp_1c,cmd_temp_1d,cmd_temp_1e,cmd_temp_1f;
+reg [15:0]cmd_temp_chanel0,cmd_temp_chanel1;
+always@(posedge clk)
+	begin
+		//input range
+		cmd_temp_00<={7'h05,1'b1,8'h06};//Channel 0 Input Range write 8'h06//0110 = Input range is set to 0 to 1.25 x VREF
+		cmd_temp_01<={7'h06,1'b1,8'h06};//Channel 1 Input Range write 8'h06
+		cmd_temp_02<={7'h07,1'b1,8'h06};//Channel 2 Input Range write 8'h06
+		cmd_temp_03<={7'h08,1'b1,8'h06};//Channel 3 Input Range write 8'h06
+		cmd_temp_04<={7'h07,1'b1,8'h06};//Channel 2 Input Range write 8'h06
+		cmd_temp_05<={7'h08,1'b1,8'h06};//Channel 3 Input Range write 8'h06
+		//auto run
+		cmd_temp_06<=16'hA000;//auto_rst
+		/////////////////////////////include alarm//////////////////////////////////
+		/*//input range
+		cmd_temp_00<={7'h05,1'b1,8'h06};//Channel 0 Input Range write 8'h06//0110 = Input range is set to 0 to 1.25 x VREF
+		cmd_temp_01<={7'h06,1'b1,8'h06};//Channel 1 Input Range write 8'h06
+		cmd_temp_02<={7'h07,1'b1,8'h06};//Channel 2 Input Range write 8'h06
+		cmd_temp_03<={7'h08,1'b1,8'h06};//Channel 3 Input Range write 8'h06
+		//chan 0 Alarm Threshold 
+		cmd_temp_04<={7'h15,1'b1,8'h00};//Channel 0 Hysteresis  write 8'h00
+		cmd_temp_05<={7'h16,1'b1,8'hff};//Channel 0 High Threshold MSB write 8'hff
+		cmd_temp_06<={7'h17,1'b1,8'hf0};//Channel 0 High Threshold LSB write 8'hf0
+		cmd_temp_07<={7'h18,1'b1,8'h00};//Channel 0 Low  Threshold MSB write 8'h00
+		cmd_temp_08<={7'h19,1'b1,8'h00};//Channel 0 Low  Threshold LSB write 8'h00
+		//chan 0 Alarm Threshold
+		cmd_temp_09<={7'h1a,1'b1,8'h00};//Channel 1 Hysteresis  write 8'h00
+		cmd_temp_0a<={7'h1b,1'b1,8'hff};//Channel 1 High Threshold MSB write 8'hff
+		cmd_temp_0b<={7'h1c,1'b1,8'hf0};//Channel 1 High Threshold LSB write 8'hf0
+		cmd_temp_0c<={7'h1d,1'b1,8'h00};//Channel 1 Low  Threshold MSB write 8'h00
+		cmd_temp_0d<={7'h1e,1'b1,8'h00};//Channel 1 Low  Threshold LSB write 8'h00
+		//chan 0 Alarm Threshold
+		cmd_temp_0e<={7'h1f,1'b1,8'h00};//Channel 2 Hysteresis  write 8'h00
+		cmd_temp_0f<={7'h20,1'b1,8'hff};//Channel 2 High Threshold MSB write 8'hff
+		cmd_temp_10<={7'h21,1'b1,8'hf0};//Channel 2 High Threshold LSB write 8'hf0
+		cmd_temp_11<={7'h22,1'b1,8'h00};//Channel 2 Low  Threshold MSB write 8'h00
+		cmd_temp_12<={7'h23,1'b1,8'h00};//Channel 2 Low  Threshold LSB write 8'h00
+		//chan 0 Alarm Threshold
+		cmd_temp_13<={7'h24,1'b1,8'h00};//Channel 3 Hysteresis  write 8'h00
+		cmd_temp_14<={7'h25,1'b1,8'hff};//Channel 3 High Threshold MSB write 8'hff
+		cmd_temp_15<={7'h26,1'b1,8'hf0};//Channel 3 High Threshold LSB write 8'hf0
+		cmd_temp_16<={7'h27,1'b1,8'h00};//Channel 3 Low  Threshold MSB write 8'h00
+		cmd_temp_17<={7'h28,1'b1,8'h00};//Channel 3 Low  Threshold LSB write 8'h00
+		//ALARM FLAG READ
+		cmd_temp_18<={7'h10,1'b0,8'h00};//ALARM Overview Tripped-Flag read
+		cmd_temp_19<={7'h11,1'b0,8'h00};//ALARM Ch 0-3 Tripped-Flag   read
+		cmd_temp_1a<={7'h12,1'b0,8'h00};//ALARM Ch 0-3 Active-Flag    read
+		//Manual Chanel Selection*/
+		cmd_temp_chanel0<=16'hC000;//Chanel0
+		cmd_temp_chanel1<=16'hC400;//Chanel1
+	end
+(* syn_preserve = 1 *)reg [7:0] tx_state,tx_state1;
+always@(posedge clk)tx_state1<=tx_state;
+always@(posedge clk)
+	begin
+		case(tx_state)
+				0:begin
+						csn <= 1;
+						cmd_length <= 15;
+						wait_length<= 15;
+						pkg_interval<= 0;
+						pkg_num<=pkg_num;
+						tx_state <= 1;
+					  end
+				1:begin
+						csn <= 0;
+						cmd_length <= cmd_length -1;
+					   if(pkg_num<=16'h0006)
+						//if(pkg_num<=16'h001b)//include alarm
+							begin
+								case(pkg_num)
+									16'h0000:dout <= cmd_temp_00[cmd_length];
+									16'h0001:dout <= cmd_temp_01[cmd_length];
+									16'h0002:dout <= cmd_temp_02[cmd_length];
+									16'h0003:dout <= cmd_temp_03[cmd_length];
+									16'h0004:dout <= cmd_temp_04[cmd_length];
+									16'h0005:dout <= cmd_temp_05[cmd_length];
+									16'h0006:dout <= cmd_temp_06[cmd_length];
+									/*include alarm
+									16'h0000:dout <= cmd_temp_00[cmd_length];
+									16'h0001:dout <= cmd_temp_01[cmd_length];
+									16'h0002:dout <= cmd_temp_02[cmd_length];
+									16'h0003:dout <= cmd_temp_03[cmd_length];
+									16'h0004:dout <= cmd_temp_04[cmd_length];
+									16'h0005:dout <= cmd_temp_05[cmd_length];
+									16'h0006:dout <= cmd_temp_06[cmd_length];
+									16'h0007:dout <= cmd_temp_07[cmd_length];
+									16'h0008:dout <= cmd_temp_08[cmd_length];
+									16'h0009:dout <= cmd_temp_09[cmd_length];
+									16'h000a:dout <= cmd_temp_0a[cmd_length];
+									16'h000b:dout <= cmd_temp_0b[cmd_length];
+									16'h000c:dout <= cmd_temp_0c[cmd_length];
+									16'h000d:dout <= cmd_temp_0d[cmd_length];
+									16'h000e:dout <= cmd_temp_0e[cmd_length];
+									16'h000f:dout <= cmd_temp_0f[cmd_length];
+									16'h0010:dout <= cmd_temp_10[cmd_length];
+									16'h0011:dout <= cmd_temp_11[cmd_length];
+									16'h0012:dout <= cmd_temp_12[cmd_length];
+									16'h0013:dout <= cmd_temp_13[cmd_length];
+									16'h0014:dout <= cmd_temp_14[cmd_length];
+									16'h0015:dout <= cmd_temp_15[cmd_length];
+									16'h0016:dout <= cmd_temp_16[cmd_length];
+									16'h0017:dout <= cmd_temp_17[cmd_length];
+									16'h0018:dout <= cmd_temp_18[cmd_length];			
+								   16'h0019:dout <= cmd_temp_19[cmd_length];	
+							      16'h001a:dout <= cmd_temp_1a[cmd_length];		
+									16'h001b:dout <= cmd_temp_1b[cmd_length];
+									*/
+									default:dout <= 0;
+								endcase
+							end
+						else
+							begin
+								if(channel_flag)dout <= cmd_temp_chanel1[cmd_length];
+								else				 dout <= cmd_temp_chanel0[cmd_length];
+							end
+//							dout <= 0;
+						if(cmd_length==0)
+							begin
+								tx_state <= 2;
+								channel_flag<=~channel_flag;
+							end
+							
+						else tx_state <=1;
+					  end
+				2:begin
+						dout <= 0;
+						wait_length <= wait_length -1;
+						if(wait_length==0)
+							begin	tx_state <=3;
+									if(pkg_num<=16'h0006)pkg_num <=pkg_num+1;
+									else	pkg_num <=pkg_num;
+									/*include alarm
+									pkg_num <=pkg_num+1;
+									*/
+									end
+						else 
+							begin tx_state <=2;
+									pkg_num <=pkg_num;
+									end
+					  end
+				3:begin
+						csn <= 1;
+//						pkg_interval<=pkg_interval+1;
+//						if(pkg_interval==1)tx_state <=0;
+//						else	tx_state <=3;
+						tx_state <=0;
+					  end
+				default:begin
+						csn <= 1;
+						cmd_length <= 15;
+						wait_length<= 15;
+						pkg_interval<= 0;
+						pkg_num<=0;
+						tx_state <= 1;
+						
+					  end
+		endcase
+	end	 
+//spi receive mode
+reg [7:0]receive_cnt,receive_cnt1;
+always@(posedge clk)receive_cnt1<=receive_cnt;
+always@(posedge clk)
+	begin
+		if((tx_state==2)&&(!csn))
+			begin
+				if(receive_cnt==0)receive_cnt<=15;
+				else receive_cnt<=receive_cnt-1;
+			end
+		else
+			begin
+				receive_cnt<=15;
+			end
+	end
+
+always@(posedge clk)
+	begin
+		if(tx_state1==2)receive_data[receive_cnt1]<=din;
+		else receive_data<=receive_data;
+	end
+					
+endmodule

@@ -1,0 +1,461 @@
+`timescale 1 ns / 1 ps
+
+//`define NIOS_ON
+//`define FFT_ON
+//`define DDR_ON
+module top(
+/**************clock in***************/
+		input  wire	clk_in1,
+		input  wire	clk_in2,
+	   input  wire	clk_in3, 
+/************ads interface************/
+//////////////ads1
+		output wire	AD1_CS,
+		output wire	AD1_SCLK,
+		input  wire	AD1_MISO,
+		output wire	AD1_MOSI,
+//////////////ads2
+		output wire	AD2_CS,
+		output wire	AD2_SCLK,
+		input  wire	AD2_MISO,
+		output wire	AD2_MOSI,
+/**********microchip interface*********/
+//////////K64 SPI
+		output wire k64_spi_cs,k64_spi_clk,
+		input	 wire	k64_spi_din,
+		output wire	k64_spi_dout,
+//////////K64 Flexbus
+		inout	[7:0]	K64_AD,
+		input	wire	K64_ALE,
+		input	wire	K64_RW,	
+		input	wire	K64_CS0,
+		input	wire	K64_CLK,
+/************uart interface***********/		
+		input  uart_rx,
+		output uart_tx,		
+/************ddr3 interface***********/
+`ifdef DDR_ON
+	   output wire [13:0] 	mem_a,    //memory.mem_a
+		output wire [2:0]  	mem_ba,   //.mem_ba
+		output wire [0:0]		mem_ck,   //.mem_ck
+		output wire [0:0]		mem_ck_n, //.mem_ck_n
+		output wire mem_cke,           //.mem_cke
+		output wire mem_cs_n,          //.mem_cs_n
+		output wire [1:0]  	mem_dm,   //.mem_dm
+		output wire mem_ras_n,         //.mem_ras_n
+		output wire mem_cas_n,         //.mem_cas_n
+		output wire mem_we_n,          //.mem_we_n
+		output wire mem_reset_n,       //.mem_reset_n
+		inout  wire [15:0] 	mem_dq,   //.mem_dq
+		inout  wire [1:0]  	mem_dqs,  //.mem_dqs
+		inout  wire [1:0]  	mem_dqs_n,//.mem_dqs_n
+		output wire mem_odt,           //.mem_odt
+		input  wire oct_rzqin,         //oct.rzqin
+`else
+	
+`endif
+/************ds3231 interface***********/
+		input  ds3231_rstn,
+//		input  ds3231_32khz,
+		input  ds3231_intn_sqw,
+		output wire ds3231_scl,
+		inout  ds3231_sda,
+/************max7410 clkin***********/
+/////////////7K//////////////
+		output reg	A7K,
+/*****************test led***********/
+//////////LED//////////		
+		output wire	LED_FPGA0,
+		output wire	LED_FPGA1,
+
+		input key
+);
+//low speed clock 		
+wire clk_2_5m,clk_5m,clk_7m,clk_10m,clk_17m,clk_25m,clk_34m,clk_50m;
+//high speed clock
+wire clk_100m,clk_200m,clk_400m;
+wire	clk_250,clk_500,clk_250K;
+wire	rst,rst_ddr;
+integer	clk_7k_cnt = 10'd0;
+		 
+wire[63:0]ads_dat={Ch3_Data,Ch2_Data,Ch1_Data,Ch0_Data};
+wire[3:0]ads_dat_en={Ch3_Data_en,Ch2_Data_en,Ch1_Data_en,Ch0_Data_en};
+
+// low speed clock produce
+pll_L pll_L(
+	.refclk(clk_in1),   	// refclk.clk
+	.rst(rst),      		// reset.reset
+	.outclk_0(clk_2_5m), // outclk0.clk
+	.outclk_1(clk_5m  ),
+	.outclk_2(clk_7m  ),
+	.outclk_3(clk_10m ),
+	.outclk_4(clk_17m ),
+	.outclk_5(clk_25m ),
+	.outclk_6(clk_34m ),
+	.outclk_7(clk_50m ));
+// high speed clock produce
+pll_H pll_H(
+	.refclk(clk_in3),   	// refclk.clk
+	.rst(rst),      		// reset.reset
+	.outclk_0(clk_100m),
+	.outclk_1(clk_200m),
+	.outclk_2(clk_400m));
+	
+clock_lf clock_lf(
+	.rst(rst),
+	.clk(clk_50m),
+	
+	.clk_250(clk_250),
+	.clk_500(clk_500),
+	.clk_250K(clk_250K));
+	
+led_test	led (
+	 .CLK_IN(clk_50m),
+	 .rst(rst),
+	 .LED_FPGA0(),
+	 .LED_FPGA1(LED_FPGA1)
+	);
+	
+sys_rst sys_rst(
+	.clk(clk_50m),
+	
+	.rst_out0(rst),
+	.rst_out1(rst_ddr));
+				 
+//wire [55:0]Ch1_Dataf_ads2_w={1'b0,Ch1_Dataf_ads2};
+//wire [54:0]Ch1_Dataf_ads2;
+//wire Ch1_Dataf_en_ads2;
+
+wire [15:0]Ch0_Data;
+wire [15:0]Ch1_Data;
+wire [15:0]Ch2_Data;
+wire [15:0]Ch3_Data;
+wire Ch0_Data_en;
+wire Ch1_Data_en;
+wire Ch2_Data_en;
+wire Ch3_Data_en;
+
+wire [15:0]Ch0_Dataf_ads1;
+wire [15:0]Ch1_Dataf_ads1;
+wire [15:0]Ch0_Dataf_ads2;
+wire [15:0]Ch1_Dataf_ads2;
+wire Ch1_Dataf_en_ads2;
+wire Ch0_Dataf_en_ads2;
+wire Ch1_Dataf_en_ads1;
+wire Ch0_Dataf_en_ads1;
+
+wire [15:0]Data_template;
+wire Data_template_en;
+	 
+signal_source signal_source(
+	.rst(rst),
+	.clk(clk_50m),
+	.clk_ads(clk_17m),
+	
+	.cs_ads1(AD1_CS),
+	.sclk_ads1(AD1_SCLK),
+	.sdo_ads1(AD1_MOSI),
+	.sdi_ads1(AD1_MISO),
+		
+	.cs_ads2(AD2_CS),
+	.sclk_ads2(AD2_SCLK),
+	.sdo_ads2(AD2_MOSI),
+	.sdi_ads2(AD2_MISO),
+	 
+	.Ch0_Data(Ch0_Data),
+	.Ch1_Data(Ch1_Data),
+	.Ch2_Data(Ch2_Data),
+	.Ch3_Data(Ch3_Data),
+	
+	.Ch0_Data_en(Ch0_Data_en),
+	.Ch1_Data_en(Ch1_Data_en),
+	.Ch2_Data_en(Ch2_Data_en),
+	.Ch3_Data_en(Ch3_Data_en),
+	
+	.Data_template(Data_template),
+	.Data_template_en(Data_template_en)
+    );
+
+
+wire Ch0_alarm_ads1;
+wire Ch1_alarm_ads1;
+wire Ch2_alarm_ads1;
+wire Ch3_alarm_ads1;
+wire Ch0_alarm_ads2;
+wire Ch1_alarm_ads2;
+wire Ch2_alarm_ads2;
+wire Ch3_alarm_ads2;
+
+wire incident_inform;
+wire[7:0]incident_b0;
+wire[7:0]incident_b1;
+wire[7:0]incident_b2;
+signal_detect signal_detect(
+    .clk(clk_50m),
+	 .clk1(clk_50m),
+	 .rst(rst),
+	 	 
+	 .Ch0_Data(Ch0_Data),
+	 .Ch1_Data(Ch1_Data),
+	 .Ch2_Data(Ch2_Data),
+	 .Ch3_Data(Ch3_Data),
+	 .Ch0_Data_en(Ch0_Data_en),
+	 .Ch1_Data_en(Ch1_Data_en),
+	 .Ch2_Data_en(Ch2_Data_en),
+	 .Ch3_Data_en(Ch3_Data_en),
+	 
+	 .Ch0_Dataf_ads1(Ch0_Dataf_ads1),
+	 .Ch1_Dataf_ads1(Ch1_Dataf_ads1),
+	 .Ch0_Dataf_ads2(Ch0_Dataf_ads2),
+	 .Ch1_Dataf_ads2(Ch1_Dataf_ads2),
+	 .Ch0_Dataf_en_ads1(Ch0_Dataf_en_ads1),
+	 .Ch1_Dataf_en_ads1(Ch1_Dataf_en_ads1),
+	 .Ch0_Dataf_en_ads2(Ch0_Dataf_en_ads2),
+	 .Ch1_Dataf_en_ads2(Ch1_Dataf_en_ads2),
+	 
+	 .Data_template(Data_template),
+	 .Data_template_en(Data_template_en),
+	 
+	 .Ch0_alarm(),
+	 .Ch1_alarm(),
+	 .Ch2_alarm(),
+	 .Ch3_alarm(),
+	 
+	 .Ch0_disconnect(),
+	 .Ch1_disconnect(),
+	 .Ch2_disconnect(),
+	 .Ch3_disconnect(),
+	 
+	 .Ch0_trouble(),
+	 .Ch1_trouble(),
+	 .Ch2_trouble(),
+	 .Ch3_trouble(),
+	 
+	 .incident_inform(incident_inform),
+	 .incident_b0(incident_b0),
+	 .incident_b1(incident_b1),
+	 .incident_b2(incident_b2),
+	 .incident_b3(incident_b3)
+	 );
+	 
+`ifdef NIOS_ON
+	Qsys_system Qsys_system (
+			.clk_clk(clk_100m),        // clk.clk
+			.reset_reset_n(~rst),   	// reset.reset_n
+			.pio_key_export(key), 		// pio_key.export
+			.pio_led0_export(LED_FPGA0)// pio_led.export
+			
+		);
+`else
+	
+`endif
+
+wire[24:0]ddr_add;
+wire[7:0] ddr_op;
+`ifdef DDR_ON
+	mt41j128m16_control mt41j128m16_control(	
+	.ppl_clk(clk_in2),
+	.rst(rst),
+	
+	.mem_a(mem_a),             //memory.mem_a
+	.mem_ba(mem_ba),           //.mem_ba
+	.mem_ck(mem_ck),           //.mem_ck
+	.mem_ck_n(mem_ck_n),       //.mem_ck_n
+	.mem_cke(mem_cke),         //.mem_cke
+	.mem_cs_n(mem_cs_n),       //.mem_cs_n
+	.mem_dm(mem_dm),           //.mem_dm
+	.mem_ras_n(mem_ras_n),     //.mem_ras_n
+	.mem_cas_n(mem_cas_n),     //.mem_cas_n
+	.mem_we_n(mem_we_n),       //.mem_we_n
+	.mem_reset_n(mem_reset_n), //.mem_reset_n
+	.mem_dq(mem_dq),           //.mem_dq
+	.mem_dqs(mem_dqs),         //.mem_dqs
+	.mem_dqs_n(mem_dqs_n),     //.mem_dqs_n
+	.mem_odt(mem_odt),         //.mem_odt
+	.oct_rzqin(oct_rzqin),     //oct.rzqin
+
+	.ddr_add(ddr_add),
+	.ddr_op(ddr_op),
+	.ads_dat(ads_dat),
+	.ads_dat_en(ads_dat_en));
+`else
+	
+`endif
+
+wire [7:0]time_message_cnt;
+wire [7:0]year;
+wire [7:0]month;
+wire [7:0]day;
+wire [7:0]hour;
+wire [7:0]minute;
+wire [7:0]second;
+
+microchip_interact microchip_interact(
+	 .rst(rst),
+	 .clk_25m(clk_25m),
+	 .clk_50m(clk_50m),
+	 
+//////////K64 SPI//////////////////
+	 .k64_spi_cs(k64_spi_cs),
+	 .k64_spi_clk(k64_spi_clk),
+	 .k64_spi_din(k64_spi_din),
+	 .k64_spi_dout(k64_spi_dout),
+//////////K64 Flexbus//////////
+	 .K64_AD(K64_AD),
+	 .K64_ALE(K64_ALE),
+	 .K64_RW(K64_RW),	
+	 .K64_CS0(K64_CS0),
+	 .K64_CLK(K64_CLK),
+	 
+//	 .cs_ads2(AD2_CS),
+//	 .pkg_num_ads2(pkg_num_ads2),
+//	 .receive_data_ads2(receive_data_ads2),
+//	 .ALARM_Overview_Tflag_ads2(ALARM_Overview_Tflag_ads2),
+//	 .ALARM_Ch03_Tfag_ads2(ALARM_Ch03_Tfag_ads2),
+//	 .ALARM_Ch03_Aflag_ads2(ALARM_Ch03_Aflag_ads2),
+	 .Ch0_Data_ads2(Ch0_Data),
+	 .Ch1_Data_ads2(Ch1_Data),
+	 .Ch2_Data_ads2(),
+	 .Ch3_Data_ads2(),
+	
+//	 .cs_ads1(AD1_CS),
+//	 .pkg_num_ads1(pkg_num_ads1),
+//	 .receive_data_ads1(receive_data_ads1),
+//	 .ALARM_Overview_Tflag_ads1(ALARM_Overview_Tflag_ads1),
+//	 .ALARM_Ch03_Tfag_ads1(ALARM_Ch03_Tfag_ads1),
+//	 .ALARM_Ch03_Aflag_ads1(ALARM_Ch03_Aflag_ads1),
+	 .Ch0_Data_ads1(Ch2_Data),
+	 .Ch1_Data_ads1(Ch3_Data),
+	 .Ch2_Data_ads1(),
+	 .Ch3_Data_ads1(),
+	 
+	 .Ch0_Data_en(Ch0_Data_en),
+	 .Ch1_Data_en(Ch1_Data_en),
+	 .Ch2_Data_en(Ch2_Data_en),
+	 .Ch3_Data_en(Ch3_Data_en),
+	 
+	 .Ch0_Dataf_ads1(Ch0_Dataf_ads1),
+	 .Ch1_Dataf_ads1(Ch1_Dataf_ads1),
+	 .Ch0_Dataf_ads2(Ch0_Dataf_ads2),
+	 .Ch1_Dataf_ads2(Ch1_Dataf_ads2),
+	 .Ch0_Dataf_en_ads1(Ch0_Dataf_en_ads1),
+	 .Ch1_Dataf_en_ads1(Ch1_Dataf_en_ads1),
+	 .Ch0_Dataf_en_ads2(Ch0_Dataf_en_ads2),
+	 .Ch1_Dataf_en_ads2(Ch1_Dataf_en_ads2),
+	
+	 .time_message_cnt(time_message_cnt),
+	 .year(year),
+	 .month(month),
+	 .day(day),
+	 .hour(hour),
+	 .minute(minute),
+	 .second(second));
+	
+wire ds3231_write_start;
+wire ds3231_write_over;
+wire [47:0]ds3231_write_dat;		
+
+wire ds3231_read_start;
+wire ds3231_read_over;
+wire [47:0]ds3231_read_dat;	
+
+wire to_uart_ready,to_uart_valid,from_uart_valid;
+wire [7:0]to_uart_data,from_uart_data;
+uart_top uart_top(
+	.reset(rst),
+	.clk(clk_50m),
+	.uart_rx(uart_rx),
+	.uart_tx(uart_tx),
+	
+	.ALARM_Overview_Tflag_ads1(),
+	.ALARM_Ch03_Tfag_ads1(),
+	.ALARM_Ch03_Aflag_ads1(),
+	.Ch0_Data_ads1(Ch0_Data),
+	.Ch1_Data_ads1(Ch1_Data),
+	.Ch2_Data_ads1(),
+	.Ch3_Data_ads1(),
+	.ALARM_Overview_Tflag_ads2(),
+	.ALARM_Ch03_Tfag_ads2(),
+	.ALARM_Ch03_Aflag_ads2(),
+	.Ch0_Data_ads2(Ch3_Data),
+	.Ch1_Data_ads2(Ch4_Data),
+	.Ch2_Data_ads2(),
+	.Ch3_Data_ads2(),
+	
+//	.Ch0_Dataf_ads2(Ch0_Dataf_ads2_w),
+// .Ch0_Dataf_en_ads2(Ch0_Dataf_en_ads2),
+	
+	.ddr_add(ddr_add),
+	.ddr_op(ddr_op),
+	
+	.time_message_cnt(time_message_cnt),
+	.year(year),
+	.month(month),
+	.day(day),
+	.hour(hour),
+	.minute(minute),
+	.second(second),
+	
+	.ds3231_write_start(ds3231_write_start),
+	.ds3231_write_over(ds3231_write_over),
+	.ds3231_write_dat(ds3231_write_dat),
+	
+	.Ch0_Data_en_ads2(Ch2_Data_en),
+	.Ch1_Data_en_ads2(Ch3_Data_en),
+	.Ch2_Data_en_ads2(),
+	.Ch3_Data_en_ads2(),
+	
+	.incident_inform(incident_inform),
+	.incident_b0(incident_b0),
+	.incident_b1(incident_b1),
+	.incident_b2(incident_b2),
+	.incident_b3(incident_b3));	 
+	
+ds3231_i2c ds3231_i2c(			
+	.rst(rst),
+	.clk(clk_5m),
+	.sda(ds3231_sda),
+	.scl(ds3231_scl),
+	
+	.write_start_uart(ds3231_write_start),
+	.write_over_uart(ds3231_write_over),
+	.write_dat_uart(ds3231_write_dat)
+	);
+		
+		
+always @(posedge clk_7m)begin
+	if (clk_7k_cnt ==10'd1000)  begin
+		clk_7k_cnt <= 1'b0;
+	end
+	else begin
+		clk_7k_cnt<=clk_7k_cnt+1;
+		if (clk_7k_cnt <10'd500) begin
+		A7K <= 1'b1;
+		end
+		else begin
+		A7K <= 1'b0;
+		end
+	end
+end
+	
+`ifdef FFT_ON
+	fft_ads fft_ads(
+	 .rst(rst),
+	 .clk(clk_250K),
+	 
+	 .Ch0_Data_ads1(Ch0_Data),
+	 .Ch1_Data_ads1(Ch1_Data),
+	 .Ch0_Data_ads2(Ch2_Data),
+	 .Ch1_Data_ads2(Ch3_Data),
+	 
+	 .Ch0_Data_en_ads1(Ch0_Data_en),
+	 .Ch1_Data_en_ads1(Ch1_Data_en),
+	 .Ch0_Data_en_ads2(Ch2_Data_en),	 
+	 .Ch1_Data_en_ads2(Ch3_Data_en)
+
+    );
+`else
+	
+`endif
+		
+endmodule

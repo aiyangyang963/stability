@@ -1,0 +1,246 @@
+# Reading E:/intelFPGA/modelsim_ae/tcl/vsim/pref.tcl
+# do stability_run_msim_rtl_verilog.do
+# if ![file isdirectory stability_iputf_libs] {
+# 	file mkdir stability_iputf_libs
+# }
+# 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying E:/intelFPGA/modelsim_ae/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+###### Libraries for IPUTF cores 
+###### End libraries for IPUTF cores 
+###### MIF file copy and HDL compilation commands for IPUTF cores 
+# 
+# file copy -force C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core_u0_m0_wo0_cm0_lutmem.hex ./
+# file copy -force C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core_u0_m0_wo0_wi0_r0_ra0_count1_lut_lutmem.hex ./
+# 
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/dspba_library_package.vhd"                      
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:36 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/dspba_library_package.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package dspba_library_package
+# End time: 15:34:37 on Oct 27,2017, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/dspba_library.vhd"                              
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:37 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/dspba_library.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package dspba_library_package
+# -- Compiling entity dspba_delay
+# -- Compiling architecture delay of dspba_delay
+# -- Loading package NUMERIC_STD
+# -- Compiling entity dspba_sync_reg
+# -- Compiling architecture sync_reg of dspba_sync_reg
+# End time: 15:34:37 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_math_pkg_hpfir.vhd"                   
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:37 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_math_pkg_hpfir.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package auk_dspip_math_pkg_hpfir
+# -- Compiling package body auk_dspip_math_pkg_hpfir
+# -- Loading package auk_dspip_math_pkg_hpfir
+# End time: 15:34:37 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_lib_pkg_hpfir.vhd"                    
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:37 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_lib_pkg_hpfir.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package auk_dspip_math_pkg_hpfir
+# -- Compiling package auk_dspip_lib_pkg_hpfir
+# End time: 15:34:37 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_controller_hpfir.vhd"
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:37 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_controller_hpfir.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity auk_dspip_avalon_streaming_controller_hpfir
+# -- Compiling architecture struct of auk_dspip_avalon_streaming_controller_hpfir
+# End time: 15:34:38 on Oct 27,2017, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd"      
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:38 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package auk_dspip_math_pkg_hpfir
+# -- Loading package auk_dspip_lib_pkg_hpfir
+# -- Loading package altera_mf_components
+# -- Compiling entity auk_dspip_avalon_streaming_sink_hpfir
+# -- Compiling architecture rtl of auk_dspip_avalon_streaming_sink_hpfir
+# ** Warning: C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd(113): Nonresolved signal 'sink_next_state' may have multiple sources.
+#   Drivers:
+#     C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd(272):Process sink_comb_update_2
+#        Driven at:
+#           C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd(279)
+#     C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd(177):Process sink_comb_update_1
+#        Driven at:
+#           C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd(183)
+# End time: 15:34:38 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd"    
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:38 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package altera_mf_components
+# -- Loading package auk_dspip_math_pkg_hpfir
+# -- Compiling entity auk_dspip_avalon_streaming_source_hpfir
+# -- Compiling architecture rtl of auk_dspip_avalon_streaming_source_hpfir
+# ** Warning: C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd(122): Nonresolved signal 'count_finished' may have multiple sources.
+#   Drivers:
+#     C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd(217):Conditional signal assignment line__216
+#     C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd(206):Conditional signal assignment line__205
+# ** Warning: C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd(123): Nonresolved signal 'count_started' may have multiple sources.
+#   Drivers:
+#     C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd(219):Conditional signal assignment line__218
+#     C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd(210):Conditional signal assignment line__209
+# End time: 15:34:38 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_roundsat_hpfir.vhd"                   
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:38 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_roundsat_hpfir.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity auk_dspip_roundsat_hpfir
+# -- Compiling architecture beh of auk_dspip_roundsat_hpfir
+# End time: 15:34:38 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/altera_avalon_sc_fifo.v"                        
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:40 on Oct 27,2017
+# vlog -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/altera_avalon_sc_fifo.v 
+# -- Compiling module altera_avalon_sc_fifo
+# 
+# Top level modules:
+# 	altera_avalon_sc_fifo
+# End time: 15:34:40 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core.vhd"                    
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:40 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package MATH_REAL
+# -- Loading package dspba_library_package
+# -- Loading package altera_mf_components
+# -- Loading package altera_lnsim_components
+# -- Loading package LPM_COMPONENTS
+# -- Compiling entity fir_2_10hz_nco_rtl_core
+# -- Compiling architecture normal of fir_2_10hz_nco_rtl_core
+# End time: 15:34:40 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_ast.vhd"                         
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:40 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_ast.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package auk_dspip_math_pkg_hpfir
+# -- Loading package auk_dspip_lib_pkg_hpfir
+# -- Compiling entity fir_2_10hz_nco_ast
+# -- Compiling architecture struct of fir_2_10hz_nco_ast
+# End time: 15:34:41 on Oct 27,2017, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco.vhd"                             
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:41 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package auk_dspip_math_pkg_hpfir
+# -- Loading package auk_dspip_lib_pkg_hpfir
+# -- Compiling entity fir_2_10hz_nco
+# -- Compiling architecture syn of fir_2_10hz_nco
+# End time: 15:34:41 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_tb.vhd"                          
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:41 on Oct 27,2017
+# vcom -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity fir_2_10hz_nco_tb
+# -- Compiling architecture rtl of fir_2_10hz_nco_tb
+# -- Loading package auk_dspip_math_pkg_hpfir
+# -- Loading package auk_dspip_lib_pkg_hpfir
+# -- Loading entity fir_2_10hz_nco
+# End time: 15:34:41 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog "C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L_sim/pll_L.vo"                                                          
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:41 on Oct 27,2017
+# vlog -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L_sim/pll_L.vo 
+# -- Compiling module pll_L
+# 
+# Top level modules:
+# 	pll_L
+# End time: 15:34:41 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog "C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H_sim/pll_H.vo"                                                          
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:41 on Oct 27,2017
+# vlog -reportprogress 300 C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H_sim/pll_H.vo 
+# -- Compiling module pll_H
+# 
+# Top level modules:
+# 	pll_H
+# End time: 15:34:41 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii {C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz.vo}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:34:41 on Oct 27,2017
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii" C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz.vo 
+# ** Error: (vlog-7) Failed to open design unit file "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz.vo" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 15:34:41 on Oct 27,2017, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: E:/intelFPGA/modelsim_ae/win32aloem/vlog failed.
+# Error in macro ./stability_run_msim_rtl_verilog.do line 35
+# E:/intelFPGA/modelsim_ae/win32aloem/vlog failed.
+#     while executing
+# "vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii {C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_..."

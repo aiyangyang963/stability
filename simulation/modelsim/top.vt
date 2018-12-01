@@ -1,0 +1,123 @@
+// Copyright (C) 2017  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel MegaCore Function License Agreement, or other 
+// applicable license agreement, including, without limitation, 
+// that your use is for the sole purpose of programming logic 
+// devices manufactured by Intel and sold by Intel or its 
+// authorized distributors.  Please refer to the applicable 
+// agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench template that is freely editable to  
+// suit user's needs .Comments are provided in each section to help the user    
+// fill out necessary details.                                                  
+// *****************************************************************************
+// Generated on "07/28/2017 10:26:58"
+                                                                                
+// Verilog Test Bench template for design : top
+// 
+// Simulation tool : ModelSim-Altera (Verilog)
+// 
+
+`timescale 1 ns/ 1 ps
+module top_vlg_tst();
+// constants                                           
+// general purpose registers
+reg eachvec;
+// test vector input registers
+reg AD1_MISO;
+reg AD2_MISO;
+reg [7:0] treg_K64_AD;
+reg K64_ALE;
+reg K64_CLK;
+reg K64_CS0;
+reg K64_RW;
+reg clk_in1;
+reg clk_in2;
+reg clk_in3;
+reg ds3231_intn_sqw;
+reg ds3231_rstn;
+reg treg_ds3231_sda;
+reg k64_spi_din;
+reg key;
+reg uart_rx;
+// wires                                               
+wire A7K;
+wire AD1_CS;
+wire AD1_MOSI;
+wire AD1_SCLK;
+wire AD2_CS;
+wire AD2_MOSI;
+wire AD2_SCLK;
+wire [7:0]  K64_AD;
+wire LED_FPGA0;
+wire LED_FPGA1;
+wire ds3231_scl;
+wire ds3231_sda;
+wire k64_spi_clk;
+wire k64_spi_cs;
+wire k64_spi_dout;
+wire uart_tx;
+
+// assign statements (if any)                          
+assign K64_AD = treg_K64_AD;
+assign ds3231_sda = treg_ds3231_sda;
+top i1 (
+// port map - connection between master ports and signals/registers   
+	.A7K(A7K),
+	.AD1_CS(AD1_CS),
+	.AD1_MISO(AD1_MISO),
+	.AD1_MOSI(AD1_MOSI),
+	.AD1_SCLK(AD1_SCLK),
+	.AD2_CS(AD2_CS),
+	.AD2_MISO(AD2_MISO),
+	.AD2_MOSI(AD2_MOSI),
+	.AD2_SCLK(AD2_SCLK),
+	.K64_AD(K64_AD),
+	.K64_ALE(K64_ALE),
+	.K64_CLK(K64_CLK),
+	.K64_CS0(K64_CS0),
+	.K64_RW(K64_RW),
+	.LED_FPGA0(LED_FPGA0),
+	.LED_FPGA1(LED_FPGA1),
+	.clk_in1(clk_in1),
+	.clk_in2(clk_in2),
+	.clk_in3(clk_in3),
+	.ds3231_intn_sqw(ds3231_intn_sqw),
+	.ds3231_rstn(ds3231_rstn),
+	.ds3231_scl(ds3231_scl),
+	.ds3231_sda(ds3231_sda),
+	.k64_spi_clk(k64_spi_clk),
+	.k64_spi_cs(k64_spi_cs),
+	.k64_spi_din(k64_spi_din),
+	.k64_spi_dout(k64_spi_dout),
+	.key(key),
+	.uart_rx(uart_rx),
+	.uart_tx(uart_tx)
+);
+initial                                                
+begin                                                  
+// code that executes only once                        
+// insert code here --> begin                          
+                                                       
+// --> end                                             
+$display("Running testbench");                       
+end                                                    
+always                                                 
+// optional sensitivity list                           
+// @(event1 or event2 or .... eventn)                  
+begin                                                  
+// code executes for every event on sensitivity list   
+// insert code here --> begin                          
+                                                       
+@eachvec;                                              
+// --> end                                             
+end                                                    
+endmodule
+

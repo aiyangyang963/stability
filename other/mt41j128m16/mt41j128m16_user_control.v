@@ -1,0 +1,371 @@
+`timescale 1 ns / 1 ns
+
+module mt41j128m16_user_control(
+		input clk,
+		input clk_50m,
+		input test_complete,
+		
+		output reg[24:0] user0_avl_address,             //user0_avl.address
+		output reg       user0_avl_write,               //.write
+		output reg       user0_avl_read,                //.read
+		input  wire[63:0]user0_avl_readdata,            //.readdata
+		output reg[63:0] user0_avl_writedata,           //.writedata
+		output reg       user0_avl_beginbursttransfer,  //.beginbursttransfer
+		output reg[3:0]  user0_avl_burstcount,          //.burstcount
+		output reg[7:0]  user0_avl_byteenable,          //.byteenable
+		input  wire      user0_avl_readdatavalid,       //.readdatavalid
+		input  wire      user0_avl_waitrequest,         //.waitrequest_n
+		
+		input [7:0]ds_MsecondsL,		
+		input [7:0]ds_MsecondsH,
+		input [7:0]ds_Seconds,
+		input [7:0]ds_Minutes,
+		input [7:0]ds_Hour,
+		input [7:0]ds_Date,
+		input [7:0]ds_Month,
+		input [7:0]ds_Year,
+		
+		input [15:0]Ch0_Dataf_ads1,
+		input [15:0]Ch1_Dataf_ads1,
+		input [15:0]Ch0_Dataf_ads2,
+		input [15:0]Ch1_Dataf_ads2,
+		 
+		input Ch1_Dataf_en_ads2,
+		input Ch0_Dataf_en_ads2,
+		input Ch1_Dataf_en_ads1,
+		input Ch0_Dataf_en_ads1,
+//data to flexbus		
+		input ddrL_RdStar,
+		input ddrH_RdStar,
+		output wire [63:00]ddr_dat_timing,
+		output wire ddr_timing_en,
+		output wire [63:00]ddr_dat,
+		output wire ddr_dat_en,
+		output wire ddrL_read_switch,
+      output wire ddrH_read_switch,
+//		output wire[7:0]ddr_MsecondsL,		
+//		output wire[7:0]ddr_MsecondsH,
+//		output wire[7:0]ddr_Seconds,
+//		output wire[7:0]ddr_Minutes,
+//		output wire[7:0]ddr_Hour,
+//		output wire[7:0]ddr_Date,
+//		output wire[7:0]ddr_Month,
+//		output wire[7:0]ddr_Year,
+//		
+//		output wire[7:0]ddr_pkg_mun_Dataf,
+//		output wire[15:0]ddr_Ch0_Dataf_ads1,
+//		output wire[15:0]ddr_Ch1_Dataf_ads1,
+//		output wire[15:0]ddr_Ch0_Dataf_ads2,
+//		output wire[15:0]ddr_Ch1_Dataf_ads2,
+		
+		input incident_inform,
+		input[7:0]incident_b0,
+		input[7:0]incident_b1,
+		input[7:0]incident_b2,
+		input[7:0]incident_b3,
+		
+		input 	  [24:0]	user0_ddr_add,
+		input 	  [7:0]	user0_ddr_op,
+		
+		input 	  [63:0] user0_ads_dat,
+		input 	  [3:0]  user0_ads_dat_en
+	);
+	
+reg test_brust8_enable,ads_minute5_enable,user0_ddr_disable,user0_takeout_datvalid;
+ always @(*)
+	begin
+		case(user0_ddr_op)
+			0:
+				begin
+					user0_avl_address 	<=user0_avl_address_alarm;
+					user0_avl_write		<=user0_avl_write_alarm;
+					user0_avl_read			<=user0_avl_read_alarm;
+					user0_avl_writedata	<=user0_avl_writedata_alarm;
+					user0_avl_beginbursttransfer<=user0_avl_beginbursttransfer_alarm;
+					user0_avl_burstcount	<=user0_avl_burstcount_alarm;
+					user0_avl_byteenable	<=user0_avl_byteenable_alarm;
+
+					test_brust8_enable	<=0;
+					ads_minute5_enable	<=0;
+					user0_takeout_datvalid<=0;
+					user0_ddr_disable		<=1;
+				end
+		
+			1:
+				begin
+					user0_avl_address 	<=user0_avl_address_ads;
+					user0_avl_write		<=user0_avl_write_ads;
+					user0_avl_read			<=user0_avl_read_ads;
+					user0_avl_writedata	<=user0_avl_writedata_ads;
+					user0_avl_beginbursttransfer<=user0_avl_beginbursttransfer_ads;
+					user0_avl_burstcount	<=user0_avl_burstcount_ads;
+					user0_avl_byteenable	<=user0_avl_byteenable_ads;
+
+					test_brust8_enable	<=0;
+					ads_minute5_enable	<=0;
+					user0_takeout_datvalid<=0;
+					user0_ddr_disable		<=1;
+				end
+			2:
+				begin
+					user0_avl_address 	<=user0_avl_address_tb8;
+					user0_avl_write		<=user0_avl_write_tb8;
+					user0_avl_read			<=user0_avl_read_tb8;
+					user0_avl_writedata	<=user0_avl_writedata_tb8;
+					user0_avl_beginbursttransfer<=user0_avl_beginbursttransfer_tb8;
+					user0_avl_burstcount	<=user0_avl_burstcount_tb8;
+					user0_avl_byteenable	<=user0_avl_byteenable_tb8;
+					test_brust8_enable	<=1;
+					ads_minute5_enable	<=0;
+					user0_takeout_datvalid<=0;
+					user0_ddr_disable		<=0;
+				end
+			3:
+				begin
+					user0_avl_address 	<=user0_avl_address_m5;
+					user0_avl_write		<=user0_avl_write_m5;
+					user0_avl_read			<=user0_avl_read_m5;
+					user0_avl_writedata	<=user0_avl_writedata_m5;
+					user0_avl_beginbursttransfer<=user0_avl_beginbursttransfer_m5;
+					user0_avl_burstcount	<=user0_avl_burstcount_m5;
+					user0_avl_byteenable	<=user0_avl_byteenable_m5;
+					test_brust8_enable	<=0;
+					ads_minute5_enable	<=1;
+					user0_takeout_datvalid<=0;
+					user0_ddr_disable		<=0;
+				end
+			4:
+				begin
+					user0_avl_address 	<=user0_avl_address_rall;
+					user0_avl_write		<=user0_avl_write_rall;
+					user0_avl_read			<=user0_avl_read_rall;
+					user0_avl_writedata	<=user0_avl_writedata_rall;
+					user0_avl_beginbursttransfer<=user0_avl_beginbursttransfer_rall;
+					user0_avl_burstcount	<=user0_avl_burstcount_rall;
+					user0_avl_byteenable	<=user0_avl_byteenable_rall;
+					test_brust8_enable	<=0;
+					ads_minute5_enable	<=0;
+					user0_takeout_datvalid<=1;
+					user0_ddr_disable		<=0;
+				end
+			default:
+				begin
+					user0_avl_address 	<=0;
+					user0_avl_write		<=0;
+					user0_avl_read			<=0;
+					user0_avl_writedata	<=0;
+					user0_avl_beginbursttransfer<=0;
+					user0_avl_burstcount	<=0;
+					user0_avl_byteenable	<=0;
+					test_brust8_enable	<=0;
+					ads_minute5_enable	<=0;
+					user0_takeout_datvalid<=0;
+					user0_ddr_disable		<=1;
+				end				
+		endcase
+	end
+	
+wire	[24:0] user0_avl_address_ads,user0_avl_address_tb8,user0_avl_address_m5,user0_avl_address_rall,user0_avl_address_alarm;               //user0_avl.address
+wire	       user0_avl_write_ads,user0_avl_write_tb8,user0_avl_write_m5,user0_avl_write_rall,user0_avl_write_alarm;                         //.write
+wire		    user0_avl_read_ads,user0_avl_read_tb8,user0_avl_read_m5,user0_avl_read_rall,user0_avl_read_alarm;                  		        //.read
+
+wire	[63:0] user0_avl_writedata_ads,user0_avl_writedata_tb8,user0_avl_writedata_m5,user0_avl_writedata_rall,user0_avl_writedata_alarm;     //.writedata
+wire		    user0_avl_beginbursttransfer_ads,user0_avl_beginbursttransfer_tb8,user0_avl_beginbursttransfer_m5,
+				 user0_avl_beginbursttransfer_rall,user0_avl_beginbursttransfer_alarm;   													 					  //.beginbursttransfer
+wire	[3:0]  user0_avl_burstcount_ads,user0_avl_burstcount_tb8,user0_avl_burstcount_m5,user0_avl_burstcount_rall,user0_avl_burstcount_alarm;//.burstcount
+wire	[7:0]  user0_avl_byteenable_ads,user0_avl_byteenable_tb8,user0_avl_byteenable_m5,user0_avl_byteenable_rall,user0_avl_byteenable_alarm;//.byteenable
+
+/*wire	[3:0] ddr_ads_enable;
+	ddr_ads_contol ddr_ads_contol (
+		.source(ddr_ads_enable),
+		.source_ena(1),
+		.source_clk(clk));	*/
+
+ 
+	ddr_control_ads U1(
+		.clk(clk),
+		.test_complete(test_complete),		
+		
+		.user0_avl_address(user0_avl_address_ads),             				//user0_avl.address
+		.user0_avl_write(user0_avl_write_ads),               				//.write
+		.user0_avl_read(user0_avl_read_ads),                					//.read
+		.user0_avl_readdata(user0_avl_readdata),            					//.readdata
+		.user0_avl_writedata(user0_avl_writedata_ads),           			//.writedata
+		.user0_avl_beginbursttransfer(user0_avl_beginbursttransfer_ads), //.beginbursttransfer
+		.user0_avl_burstcount(user0_avl_burstcount_ads),          			//.burstcount
+		.user0_avl_byteenable(user0_avl_byteenable_ads),          			//.byteenable
+		.user0_avl_readdatavalid(user0_avl_readdatavalid),       			//.readdatavalid
+		.user0_avl_waitrequest(user0_avl_waitrequest),         				//.waitrequest_n
+		
+		.ds_MsecondsL(ds_MsecondsL),		
+		.ds_MsecondsH(ds_MsecondsH),
+		.ds_Seconds(ds_Seconds),
+		.ds_Minutes(ds_Minutes),
+		.ds_Hour(ds_Hour),
+		.ds_Date(ds_Date),
+		.ds_Month(ds_Month),
+		.ds_Year(ds_Year),
+		
+		.Ch0_Dataf_ads1(Ch0_Dataf_ads1),
+		.Ch1_Dataf_ads1(Ch1_Dataf_ads1),
+		.Ch0_Dataf_ads2(Ch0_Dataf_ads2),
+		.Ch1_Dataf_ads2(Ch1_Dataf_ads2),
+		
+		.Ch1_Dataf_en_ads2(Ch1_Dataf_en_ads2),
+		.Ch0_Dataf_en_ads2(Ch0_Dataf_en_ads2),
+		.Ch1_Dataf_en_ads1(Ch1_Dataf_en_ads1),
+		.Ch0_Dataf_en_ads1(Ch0_Dataf_en_ads1),
+		
+		.ddr_MsecondsL(ddr_MsecondsL),		
+		.ddr_MsecondsH(ddr_MsecondsH),
+		.ddr_Seconds(ddr_Seconds),
+		.ddr_Minutes(ddr_Minutes),
+		.ddr_Hour(ddr_Hour),
+		.ddr_Date(ddr_Date),
+		.ddr_Month(ddr_Month),
+		.ddr_Year(ddr_Year),
+		
+		.ddr_pkg_mun_Dataf(ddr_pkg_mun_Dataf),
+		.ddr_Ch0_Dataf_ads1(ddr_Ch0_Dataf_ads1),
+		.ddr_Ch1_Dataf_ads1(ddr_Ch1_Dataf_ads1),
+		.ddr_Ch0_Dataf_ads2(ddr_Ch0_Dataf_ads2),
+		.ddr_Ch1_Dataf_ads2(ddr_Ch1_Dataf_ads2),
+		
+		.incident_inform(),
+		.incident_b0(),
+		.incident_b1(),
+		.incident_b2(),
+		.incident_b3(incident_b3),
+		
+		.ddr_ads_enable(4'b1111)
+		
+		);
+
+	ddr_control_test_brust8 U2(
+		 .clk(clk),
+		 .test_complete(test_complete),		
+	
+		 .user0_avl_address(user0_avl_address_tb8),             				//user0_avl.address
+		 .user0_avl_write(user0_avl_write_tb8),               				//.write
+		 .user0_avl_read(user0_avl_read_tb8),                					//.read
+		 .user0_avl_readdata(user0_avl_readdata),            					//.readdata
+		 .user0_avl_writedata(user0_avl_writedata_tb8),           			//.writedata
+		 .user0_avl_beginbursttransfer(user0_avl_beginbursttransfer_tb8), //.beginbursttransfer
+		 .user0_avl_burstcount(user0_avl_burstcount_tb8),          			//.burstcount
+		 .user0_avl_byteenable(user0_avl_byteenable_tb8),          			//.byteenable
+		 .user0_avl_readdatavalid(user0_avl_readdatavalid),       			//.readdatavalid
+		 .user0_avl_waitrequest(user0_avl_waitrequest),         				//.waitrequest_n
+		
+		 .user0_ddr_add(user0_ddr_add),
+		 .ddr_atom_start(),
+		 .test_brust8_enable(test_brust8_enable)
+	);
+	
+	ddr_control_ads_minute5 U3(
+		 .clk(clk),
+		 .clk_50m(clk_50m),
+		 .test_complete(test_complete),
+		
+	
+		 .user0_avl_address(user0_avl_address_m5),              //user0_avl.address
+		 .user0_avl_write(user0_avl_write_m5),                //.write
+		 .user0_avl_read(user0_avl_read_m5),                 //.read
+		 .user0_avl_readdata(user0_avl_readdata),             //.readdata
+		 .user0_avl_writedata(user0_avl_writedata_m5),            //.writedata
+		 .user0_avl_beginbursttransfer(user0_avl_beginbursttransfer_m5),   //.beginbursttransfer
+		 .user0_avl_burstcount(user0_avl_burstcount_m5),           //.burstcount
+		 .user0_avl_byteenable(user0_avl_byteenable_m5),           //.byteenable
+		 .user0_avl_readdatavalid(user0_avl_readdatavalid),        //.readdatavalid
+		 .user0_avl_waitrequest(user0_avl_waitrequest),          //.waitrequest_n
+		
+		 .user0_ddr_add(user0_ddr_add),
+		 .ads_minute5_enable(ads_minute5_enable),
+		 .user0_ddr_disable(user0_ddr_disable),
+		 .user0_takeout_datvalid(0),
+		 
+		 .user0_ads_dat(user0_ads_dat),
+		 .user0_ads_dat_en(user0_ads_dat_en)
+	);
+	
+	ddr_control_read_allmem U4(
+		 .clk(clk),
+		 .test_complete(test_complete),		
+	
+		 .user0_avl_address(user0_avl_address_rall),             				//user0_avl.address
+		 .user0_avl_write(user0_avl_write_rall),               				//.write
+		 .user0_avl_read(user0_avl_read_rall),                					//.read
+		 .user0_avl_readdata(user0_avl_readdata),            					//.readdata
+		 .user0_avl_writedata(user0_avl_writedata_rall),           			//.writedata
+		 .user0_avl_beginbursttransfer(user0_avl_beginbursttransfer_rall), //.beginbursttransfer
+		 .user0_avl_burstcount(user0_avl_burstcount_rall),          			//.burstcount
+		 .user0_avl_byteenable(user0_avl_byteenable_rall),          			//.byteenable
+		 .user0_avl_readdatavalid(user0_avl_readdatavalid),       			//.readdatavalid
+		 .user0_avl_waitrequest(user0_avl_waitrequest),         				//.waitrequest_n
+		
+		 .user0_ddr_add(user0_ddr_add),
+		 .user0_takeout_datvalid(user0_takeout_datvalid)
+	);
+	
+	ddr_control_alarm U5(
+		.clk(clk),
+		.test_complete(test_complete),		
+		
+		.user0_avl_address(user0_avl_address_alarm),             				//user0_avl.address
+		.user0_avl_write(user0_avl_write_alarm),               				//.write
+		.user0_avl_read(user0_avl_read_alarm),                					//.read
+		.user0_avl_readdata(user0_avl_readdata),            					//.readdata
+		.user0_avl_writedata(user0_avl_writedata_alarm),           			//.writedata
+		.user0_avl_beginbursttransfer(user0_avl_beginbursttransfer_alarm), //.beginbursttransfer
+		.user0_avl_burstcount(user0_avl_burstcount_alarm),          			//.burstcount
+		.user0_avl_byteenable(user0_avl_byteenable_alarm),          			//.byteenable
+		.user0_avl_readdatavalid(user0_avl_readdatavalid),       			//.readdatavalid
+		.user0_avl_waitrequest(user0_avl_waitrequest),         				//.waitrequest_n
+		
+		.ds_MsecondsL(ds_MsecondsL),		
+		.ds_MsecondsH(ds_MsecondsH),
+		.ds_Seconds(ds_Seconds),
+		.ds_Minutes(ds_Minutes),
+		.ds_Hour(ds_Hour),
+		.ds_Date(ds_Date),
+		.ds_Month(ds_Month),
+		.ds_Year(ds_Year),
+		
+		.Ch0_Dataf_ads1(Ch0_Dataf_ads1),
+		.Ch1_Dataf_ads1(Ch1_Dataf_ads1),
+		.Ch0_Dataf_ads2(Ch0_Dataf_ads2),
+		.Ch1_Dataf_ads2(Ch1_Dataf_ads2),
+		
+		.Ch1_Dataf_en_ads2(Ch1_Dataf_en_ads2),
+		.Ch0_Dataf_en_ads2(Ch0_Dataf_en_ads2),
+		.Ch1_Dataf_en_ads1(Ch1_Dataf_en_ads1),
+		.Ch0_Dataf_en_ads1(Ch0_Dataf_en_ads1),
+//want to get data from ddr3---L inform before alarm data,H inform after alarm data
+//		.ddrL_RdStar(ddrL_RdStar),
+//		.ddrH_RdStar(ddrH_RdStar),
+		.ddrL_RdStar(rd_buff_en[1]),
+		.ddrH_RdStar(rd_buff_en[0]),
+		//data to flexbus
+		.ddr_dat_timing(ddr_dat_timing),
+		.ddr_timing_en(ddr_timing_en),
+		.ddr_dat(ddr_dat),
+		.ddr_dat_en(ddr_dat_en),
+		.ddrL_read_switch(ddrL_read_switch),
+      .ddrH_read_switch(ddrH_read_switch),
+//incident signal		
+		.incident_inform(),
+		.incident_b0(),
+		.incident_b1(),
+		.incident_b2(),
+		.incident_b3(incident_b3),
+		
+		.ddr_alarm_enable(4'b1111)
+//		.ddr_alarm_enable(0)
+	);
+(* syn_preserve = 1 *)wire [1:0]rd_buff_en;
+	read_buffer U6(
+	   .source(rd_buff_en),
+	   .source_ena(1),
+	   .source_clk(clk));	
+	
+		
+endmodule

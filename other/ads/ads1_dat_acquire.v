@@ -1,0 +1,169 @@
+`timescale 1ns / 1ns
+//////////////////////////////////////////////////////////////////////////////////
+module ads1_dat_acquire(
+    input clk,
+	 
+	 input ads_cs,
+	 input [15:0]pkg_num,
+	 input [15:0]receive_data,
+	 
+	 output reg [7:0]ALARM_Overview_Tflag,
+	 output reg [7:0]ALARM_Ch03_Tfag,
+	 output reg [7:0]ALARM_Ch03_Aflag,
+	 output reg [15:0]Ch0_Data,
+	 output reg [15:0]Ch1_Data,
+	 output reg [15:0]Ch2_Data,
+	 output reg [15:0]Ch3_Data,
+	 output reg Ch0_Data_en,
+	 output reg Ch1_Data_en,
+	 output reg Ch2_Data_en,
+	 output reg Ch3_Data_en
+    );
+	 
+//register define
+
+
+wire pos_ads_cs,neg_ads_cs;
+reg ads_cs_r0,ads_cs_r1,ads_cs_r2;
+always@(posedge clk)
+	begin
+		ads_cs_r0<=ads_cs;
+		ads_cs_r1<=ads_cs_r0;
+		ads_cs_r2<=ads_cs_r1;
+	end
+
+assign pos_ads_cs=(~ads_cs_r2)&ads_cs_r1;
+assign neg_ads_cs=ads_cs_r2&(~ads_cs_r1);   
+
+reg [1:0]ads_rotater=0;
+ always @(posedge clk)
+	begin
+		//if(pkg_num>=16'h001b)//include alarm
+		if(pkg_num>=16'h0004)
+			begin
+				if(pos_ads_cs)ads_rotater<=ads_rotater+1;
+				else ads_rotater<=ads_rotater;
+				
+			end
+		else
+			begin
+				if(pos_ads_cs)ads_rotater<=0;
+				else ads_rotater<=ads_rotater;
+				
+			end
+	end
+ always @(posedge clk)
+	begin
+		case(ads_rotater)
+			2:
+				begin
+					if(pos_ads_cs)
+						begin
+//							Ch0_Data[7:0] <=receive_data[7:0] ;
+//							Ch0_Data[15:8]<=receive_data[15:8];
+//							Ch0_Data_en<=1;
+//							Ch1_Data_en<=0;
+//							Ch2_Data_en<=0;
+//							Ch3_Data_en<=0;
+							
+							Ch1_Data[7:0] <=receive_data[7:0] ;
+							Ch1_Data[15:8]<=receive_data[15:8];
+							Ch0_Data_en<=0;
+							Ch1_Data_en<=1;
+							Ch2_Data_en<=0;
+							Ch3_Data_en<=0;
+						end
+					else Ch0_Data<=Ch0_Data;
+				end
+			3:
+				begin
+					if(pos_ads_cs)
+						begin
+//							Ch1_Data[7:0] <=receive_data[7:0] ;
+//							Ch1_Data[15:8]<=receive_data[15:8];
+//							Ch0_Data_en<=0;
+//							Ch1_Data_en<=1;
+//							Ch2_Data_en<=0;
+//							Ch3_Data_en<=0;
+							
+							Ch0_Data[7:0] <=receive_data[7:0] ;
+							Ch0_Data[15:8]<=receive_data[15:8];
+							Ch0_Data_en<=1;
+							Ch1_Data_en<=0;
+							Ch2_Data_en<=0;
+							Ch3_Data_en<=0;
+						end
+					else Ch1_Data<=Ch1_Data;
+				end
+			0:
+				begin
+					if(pos_ads_cs)
+						begin
+//							Ch2_Data[7:0] <=receive_data[7:0] ;
+//							Ch2_Data[15:8]<=receive_data[15:8];
+//							Ch0_Data_en<=0;
+//							Ch1_Data_en<=0;
+//							Ch2_Data_en<=1;
+//							Ch3_Data_en<=0;
+							
+							Ch1_Data[7:0] <=receive_data[7:0] ;
+							Ch1_Data[15:8]<=receive_data[15:8];
+							Ch0_Data_en<=0;
+							Ch1_Data_en<=1;
+							Ch2_Data_en<=0;
+							Ch3_Data_en<=0;
+
+						end
+					else Ch2_Data<=Ch2_Data;
+				end
+			1:
+				begin
+					if(pos_ads_cs)
+						begin
+//							Ch3_Data[7:0] <=receive_data[7:0] ;
+//							Ch3_Data[15:8]<=receive_data[15:8];
+//							Ch0_Data_en<=0;
+//							Ch1_Data_en<=0;
+//							Ch2_Data_en<=0;
+//							Ch3_Data_en<=1;
+							
+							Ch0_Data[7:0] <=receive_data[7:0] ;
+							Ch0_Data[15:8]<=receive_data[15:8];
+							Ch0_Data_en<=1;
+							Ch1_Data_en<=0;
+							Ch2_Data_en<=0;
+							Ch3_Data_en<=0;
+						end
+					else Ch3_Data<=Ch3_Data;
+
+				end
+			default:
+				begin
+					Ch0_Data<=Ch0_Data;
+					Ch1_Data<=Ch1_Data;
+					Ch2_Data<=Ch2_Data;
+					Ch3_Data<=Ch3_Data;
+					Ch0_Data_en<=0;
+					Ch1_Data_en<=0;
+					Ch2_Data_en<=0;
+					Ch3_Data_en<=0;
+				end
+		endcase
+	end
+/*include alarm		
+ always @(posedge clk)
+	begin
+		case(pkg_num)
+			16'h0019:ALARM_Overview_Tflag<=receive_data[15:8];
+			16'h001a:ALARM_Ch03_Tfag	  <=receive_data[15:8];
+			16'h001b:ALARM_Ch03_Aflag    <=receive_data[15:8];
+			default:
+				begin
+					ALARM_Overview_Tflag	<=ALARM_Overview_Tflag;
+					ALARM_Ch03_Tfag		<=ALARM_Ch03_Tfag;
+					ALARM_Ch03_Aflag		<=ALARM_Ch03_Aflag;
+				end
+		endcase
+	end */
+	
+endmodule

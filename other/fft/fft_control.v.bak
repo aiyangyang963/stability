@@ -1,0 +1,17 @@
+fft_control fft_control(
+	.clk(clk),
+	
+	.Ch0_Data_ads2(Ch0_Data_ads2),
+	.Ch0_Data_en_ads2(Ch0_Data_en_ads2),
+	
+	.ch0_ads2_clk(ch0_ads2_clk),
+	.ch0_ads2_reset_n(ch0_ads2_reset_n),
+	.ch0_ads2_sink_valid(ch0_ads2_sink_valid),
+	.ch0_ads2_sink_ready(ch0_ads2_sink_ready),
+	.ch0_ads2_sink_error(ch0_ads2_sink_error),
+	.ch0_ads2_sink_sop(ch0_ads2_sink_sop),
+	.ch0_ads2_sink_eop(ch0_ads2_sink_eop),
+	.ch0_ads2_sink_real(ch0_ads2_sink_real),
+	.ch0_ads2_sink_imag(ch0_ads2_sink_imag)
+	
+	);

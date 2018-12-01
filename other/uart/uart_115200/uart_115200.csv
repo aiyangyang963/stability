@@ -1,0 +1,22 @@
+# system info uart_115200 on 2017.08.24.11:41:08
+system_info:
+name,value
+DEVICE,5CEBA4F17I7
+DEVICE_FAMILY,Cyclone V
+GENERATION_ID,1503546067
+#
+#
+# Files generated for uart_115200 on 2017.08.24.11:41:08
+files:
+filepath,kind,attributes,module,is_top
+simulation/uart_115200.v,VERILOG,,uart_115200,true
+simulation/submodules/altera_up_rs232_counters.v,VERILOG,,uart_115200_rs232_0,false
+simulation/submodules/altera_up_rs232_in_deserializer.v,VERILOG,,uart_115200_rs232_0,false
+simulation/submodules/altera_up_rs232_out_serializer.v,VERILOG,,uart_115200_rs232_0,false
+simulation/submodules/altera_up_sync_fifo.v,VERILOG,,uart_115200_rs232_0,false
+simulation/submodules/uart_115200_rs232_0.v,VERILOG,,uart_115200_rs232_0,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+uart_115200.rs232_0,uart_115200_rs232_0

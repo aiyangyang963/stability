@@ -1,0 +1,171 @@
+`timescale 1ns / 1ns
+`define NCO_ON
+
+module filter_outersignal(
+	 input rst,
+	 input clk1,//50M
+	 input clk2,//5M
+	 output wire clk_500,
+	 
+	 input [15:0]Ch0_Data_ads1,
+	 input [15:0]Ch1_Data_ads1,
+	 input [15:0]Ch0_Data_ads2,
+	 input [15:0]Ch1_Data_ads2,
+	 
+	 output [15:0]Ch0_Dataf_ads1,
+	 output [15:0]Ch1_Dataf_ads1,
+	 output reg[FILTEROUTWITH-1:0]Ch0_Dataf_ads2,
+	 output reg[FILTEROUTWITH-1:0] ast_source_data_r,ast_source_data_nco_r,
+	 output reg ast_source_valid_r,ast_source_valid_nco_r,
+	 output [15:0]Ch1_Dataf_ads2,
+	 
+	 input Ch1_Data_en_ads2,
+	 input Ch0_Data_en_ads2,
+	 input Ch1_Data_en_ads1,
+	 input Ch0_Data_en_ads1,
+	 
+	 output Ch1_Dataf_en_ads2,
+	 output reg Ch0_Dataf_en_ads2,
+	 output Ch1_Dataf_en_ads1,
+	 output Ch0_Dataf_en_ads1,
+	 
+	 input [11:0]signal_nco,
+	 input sample_clk
+	 
+    );
+
+parameter FILTEROUTWITH=55;	
+parameter FILTEROUTWITH_NCO=56;	
+parameter PEAKDECTWITH=12;	
+ 
+(* syn_preserve = 1 *)wire [FILTEROUTWITH-1:0]filter_out; 
+(* syn_preserve = 1 *)wire [12:0]filter_in,filter_in_nco; 
+assign filter_in 		= {1'b0,Ch1_Data_ads2[15:4]};
+assign filter_in_nco = {1'b0,signal_nco};
+(* syn_preserve = 1 *)wire [FILTEROUTWITH-1:0] ast_source_data; 
+(* syn_preserve = 1 *)wire        ast_source_valid; 
+(* syn_preserve = 1 *)wire [1:0]  ast_source_error;  
+(* syn_preserve = 1 *)wire [FILTEROUTWITH_NCO-1:0] ast_source_data_nco; 
+(* syn_preserve = 1 *)wire        ast_source_valid_nco; 
+(* syn_preserve = 1 *)wire [1:0]  ast_source_error_nco;  
+
+wire 	pos_Ch1_Data_en_ads2;
+reg Ch1_Data_en_ads2_r0,Ch1_Data_en_ads2_r1,Ch1_Data_en_ads2_r2;
+always@(posedge clk1)
+	begin
+		Ch1_Data_en_ads2_r0<=Ch1_Data_en_ads2;
+		Ch1_Data_en_ads2_r1<=Ch1_Data_en_ads2_r0;
+		Ch1_Data_en_ads2_r2<=Ch1_Data_en_ads2_r1;
+	end
+
+assign pos_Ch1_Data_en_ads2=(~Ch1_Data_en_ads2_r2)&Ch1_Data_en_ads2_r1;  
+ 		
+fir_2_10hz fir_2_10hz (
+		.clk              (clk1),            	 	//clk.clk
+		.reset_n          (~rst),               	//rst.reset_n
+		.ast_sink_data    (filter_in),          	//avalon_streaming_sink.data
+		.ast_sink_valid   (pos_Ch1_Data_en_ads2), //.valid
+		.ast_sink_error   (0),   					 	//.error
+		.ast_source_data  (ast_source_data),    	//avalon_streaming_source.data
+		.ast_source_valid (ast_source_valid),   	//.valid
+		.ast_source_error (ast_source_error)    	//.error
+	);
+
+`ifdef NCO_ON
+	fir_2_10hz_nco fir_2_10hz_nco (
+			.clk              (clk1),            	 	//clk.clk
+			.reset_n          (~rst),               	//rst.reset_n
+			.ast_sink_data    (filter_in_nco),        //avalon_streaming_sink.data
+			.ast_sink_valid   (1), 							//.valid
+			.ast_sink_error   (0),   					 	//.error
+			.ast_source_data  (ast_source_data_nco),  //avalon_streaming_source.data
+			.ast_source_valid (ast_source_valid_nco), //.valid
+			.ast_source_error (ast_source_error_nco)  //.error
+		);
+`else
+	
+`endif
+
+defparam Gen_500.divdFACTOR=5_000,Gen_500.divdWIDTH=15;
+gen_divd Gen_500(.reset(rst),.clkin(clk2),.clkout(clk_500));	
+
+(* syn_preserve = 1 *)wire [PEAKDECTWITH-1:0]Pfilter_in,Vfilter_in,Pfilter_out,Vfilter_out;
+(* syn_preserve = 1 *)wire Pfilter_in_en,Vfilter_in_en,Pfilter_out_en,Vfilter_out_en;
+
+defparam peak_detect_filterout.DATAWIDTH=PEAKDECTWITH;	
+	 
+peak_detect peak_detect_filterout(
+	.clk(clk1),
+	.rst(rst),
+	 
+	.Data0(ast_source_data_r[45:34]),
+	.Data0_en(ast_source_valid_r),
+	
+	.PData0(Pfilter_out),
+	.PData0_en(Pfilter_out_en),
+	.VData0(Vfilter_out),
+	.VData0_en(Vfilter_out_en));
+	
+defparam peak_detect_filterin.DATAWIDTH=PEAKDECTWITH;	 
+peak_detect peak_detect_filterin(
+	.clk(clk1),
+	.rst(rst),
+	 
+	.Data0(Ch1_Data_ads2[15:4]),
+	.Data0_en(Ch1_Data_en_ads2),
+	
+	.PData0(Pfilter_in),
+	.PData0_en(Pfilter_in_en),
+	.VData0(Vfilter_in),
+	.VData0_en(Vfilter_in_en));
+	
+always@(posedge clk1)
+	begin
+		if(ast_source_valid)
+			begin
+				Ch0_Dataf_ads2		<=ast_source_data;
+				Ch0_Dataf_en_ads2	<=1;
+			end
+		
+		else 
+			begin
+				Ch0_Dataf_ads2		<=Ch0_Dataf_ads2;
+				Ch0_Dataf_en_ads2 <=0;
+			end
+	end
+
+always@(posedge clk1)
+	begin
+		if(ast_source_valid)
+			begin
+				if(ast_source_data[FILTEROUTWITH-1]) ast_source_data_r<={1'b0,(~(ast_source_data[(FILTEROUTWITH-2):0]-1))};
+				else ast_source_data_r <= ast_source_data;
+//				ast_source_data_r <= $unsigned(ast_source_data);
+				ast_source_valid_r<=1;
+			end
+		else 	
+			begin
+				ast_source_data_r	<=ast_source_data_r;
+				ast_source_valid_r<=0;
+			end
+			
+	end
+	
+always@(posedge clk1)
+	begin
+		if(ast_source_valid_nco)
+			begin
+				if(ast_source_data_nco[FILTEROUTWITH_NCO-1]) ast_source_data_nco_r<={1'b0,(~(ast_source_data_nco[(FILTEROUTWITH_NCO-2):0]-1))};
+				else ast_source_data_nco_r <= ast_source_data_nco;
+//				ast_source_data_r <= $unsigned(ast_source_data);
+				ast_source_valid_nco_r<=1;
+			end
+		else 	
+			begin
+				ast_source_data_nco_r	<=ast_source_data_nco_r;
+				ast_source_valid_nco_r<=0;
+			end
+			
+	end
+	
+endmodule

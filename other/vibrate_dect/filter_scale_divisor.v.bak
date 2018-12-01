@@ -1,0 +1,125 @@
+`timescale 1ns / 1ns
+
+module filter_scale_divisor(
+	 input rst,
+	 input clk, //50M
+	 
+	 input [15:0]Data_template,
+	 input Data_template_en,
+	 
+	 output wire [15:0]APfilter_in_template,APfilter_out_template,
+	 output wire APfilter_in_template_en,APfilter_out_template_en,
+	 
+	 (* syn_preserve = 1 *) output wire[15:0]Dataf_template,
+	 (* syn_preserve = 1 *) output wire Dataf_template_en,
+	 
+	 output reg[FILTEROUTWITH-1:0]ast_source_data_template_r,
+	 output reg ast_source_valid_template_r);
+
+parameter FILTEROUTWITH=48;	
+parameter PEAKDECTWITH=16;	
+(* keep = 1 *)assign Dataf_template 	= {4'b0,ast_source_data_template_r[37:26]};
+(* keep = 1 *)assign Dataf_template_en=ast_source_valid_template_r;
+
+(* syn_preserve = 1 *)wire [12:0]filter_in_template;	 
+(* keep = 1 *)assign filter_in_template 	= {1'b0,Data_template[15:4]};
+(* syn_preserve = 1 *)reg [FILTEROUTWITH-1:0]filter_out_template; 
+(* syn_preserve = 1 *)reg filter_out_en_template; 
+
+(* syn_preserve = 1 *)wire [15:0]Pfilter_in_template,Vfilter_in_template,Pfilter_out_template,Vfilter_out_template;
+(* syn_preserve = 1 *)wire Pfilter_in_template_en,Vfilter_in_template_en,Pfilter_out_template_en,Vfilter_out_template_en;
+
+(* syn_preserve = 1 *)wire [FILTEROUTWITH-1:0] ast_source_data_template; 
+(* syn_preserve = 1 *)wire ast_source_valid_template; 
+(* syn_preserve = 1 *)wire [1:0] ast_source_error_template;
+
+wire 	pos_Data_template_en;
+reg Data_template_en_r0,Data_template_en_r1,Data_template_en_r2;
+
+always@(posedge clk)
+	begin
+		Data_template_en_r0<=Data_template_en;
+		Data_template_en_r1<=Data_template_en_r0;
+		Data_template_en_r2<=Data_template_en_r1;
+	end
+assign pos_Data_template_en=(~Data_template_en_r2)&Data_template_en_r1; 
+
+fir_2_10hz fir_2_10hz_calibration(
+		.clk              (clk),            	 	//clk.clk
+		.reset_n          (~rst),               	//rst.reset_n
+		.ast_sink_data    (filter_in_template),        //avalon_streaming_sink.data
+		.ast_sink_valid   (pos_Data_template_en), //.valid
+		.ast_sink_error   (0),   					 	//.error
+		.ast_source_data  (ast_source_data_template),  //avalon_streaming_source.data
+		.ast_source_valid (ast_source_valid_template), //.valid
+		.ast_source_error (ast_source_error_template)  //.error
+	);
+	
+always@(posedge clk)
+	begin
+		if(ast_source_valid_template)
+			begin
+				filter_out_template		<=ast_source_data_template;
+				filter_out_en_template	<=1;
+			end
+		
+		else 
+			begin
+				filter_out_template		<=filter_out_template;
+				filter_out_en_template <=0;
+			end
+	end
+
+always@(posedge clk)
+	begin
+		if(ast_source_valid_template)
+			begin
+				if(ast_source_data_template[FILTEROUTWITH-1]) ast_source_data_template_r<={1'b0,(~(ast_source_data_template[(FILTEROUTWITH-2):0]-1))};
+				else ast_source_data_template_r <= ast_source_data_template;
+				ast_source_valid_template_r<=1;
+			end
+		else 	
+			begin
+				ast_source_data_template_r	<= ast_source_data_template_r;
+				ast_source_valid_template_r<=0;
+			end
+	end
+
+defparam peak_detect_template.DATAWIDTH=PEAKDECTWITH;	
+peak_detect peak_detect_template(
+	.clk(clk),
+	.rst(rst),
+	 
+	.Data0(filter_in_template),
+	.Data0_en(Data_template_en),
+	.Data1({4'b0,ast_source_data_template_r[37:26]}),
+	.Data1_en(ast_source_valid_template_r),
+	
+	.PData0(Pfilter_in_template),
+	.PData0_en(Pfilter_in_template_en),
+	.VData0(Vfilter_in_template),
+	.VData0_en(Vfilter_in_template_en),
+	
+	.PData1(Pfilter_out_template),
+	.PData1_en(Pfilter_out_template_en),
+	.VData1(Vfilter_out_template),
+	.VData1_en(Vfilter_out_template_en));
+	
+average_base6 average_base6(
+   .clk(clk),
+	.rst(rst),
+	 	 
+   .Data0(Pfilter_in_template),
+   .Data1(Pfilter_out_template),
+   .Data0_en(Pfilter_in_template_en),
+   .Data1_en(Pfilter_out_template_en),
+ 
+   .AData0(APfilter_in_template),
+   .AData1(APfilter_out_template),
+   .AData0_en(APfilter_in_template_en),
+   .AData1_en(APfilter_out_template_en)
+	 );
+
+
+
+endmodule

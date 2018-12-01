@@ -1,0 +1,8 @@
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) read_buffer/read_buffer.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) fft/fft.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) signal_band_internalL/signal_band_internalL.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) signal_band_internal/signal_band_internal.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) signal_band_externalL/signal_band_externalL.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) signal_band_external/signal_band_external.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) issp_dat_abs/issp_dat_abs.qip]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) ddr_ads_contol/ddr_ads_contol.qip]

@@ -1,0 +1,21 @@
+
+
+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz.v
+
+Oct 18 10AM:50:27>: Megafunction FIR II v17.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz.v
+
+Oct 18 10AM:50:34>: Megafunction FIR II v17.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco.v
+
+Oct 18 10AM:50:56>: Megafunction FIR II v17.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco.v
+
+Oct 18 10AM:50:58>: Megafunction FIR II v17.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted

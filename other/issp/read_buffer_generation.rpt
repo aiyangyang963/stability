@@ -1,0 +1,28 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\issp\read_buffer.qsys --block-symbol-file --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\issp --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading issp/read_buffer.qsys
+Progress: Reading input file
+Progress: Adding in_system_sources_probes_0 [altera_in_system_sources_probes 16.1]
+Progress: Parameterizing module in_system_sources_probes_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\issp\read_buffer.qsys --synthesis=VERILOG --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\issp\synthesis --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading issp/read_buffer.qsys
+Progress: Reading input file
+Progress: Adding in_system_sources_probes_0 [altera_in_system_sources_probes 16.1]
+Progress: Parameterizing module in_system_sources_probes_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: read_buffer: Generating read_buffer "read_buffer" for QUARTUS_SYNTH
+Info: in_system_sources_probes_0: "read_buffer" instantiated altera_in_system_sources_probes "in_system_sources_probes_0"
+Info: read_buffer: Done "read_buffer" with 2 modules, 2 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

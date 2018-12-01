@@ -1,0 +1,30 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\uart\uart_57600\uart_57600.qsys --block-symbol-file --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\uart\uart_57600\uart_57600 --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading uart_57600/uart_57600.qsys
+Progress: Reading input file
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.0]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\uart\uart_57600\uart_57600.qsys --synthesis=VERILOG --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\uart\uart_57600\uart_57600\synthesis --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading uart_57600/uart_57600.qsys
+Progress: Reading input file
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.0]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: uart_57600: Generating uart_57600 "uart_57600" for QUARTUS_SYNTH
+Info: rs232_0: Starting Generation of RS232 UART
+Error: rs232_0: The input clock frequency must be known at generation time.
+Info: rs232_0: "uart_57600" instantiated altera_up_avalon_rs232 "rs232_0"
+Info: uart_57600: Done "uart_57600" with 2 modules, 6 files
+Error: qsys-generate failed with exit code 1: 1 Error, 0 Warnings
+Info: Finished: Create HDL design files for synthesis

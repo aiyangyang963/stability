@@ -1,0 +1,103 @@
+`timescale 1 ns / 1 ns
+module ds3231_i2c
+	(
+		input rst,
+		input clk,
+		inout sda,
+		output wire scl,
+		
+		input write_start_uart,
+		output wire write_over_uart,
+		input [47:0]write_dat_uart,
+	
+		output wire clk_500
+	);
+	
+defparam Gen_250k.divdFACTOR=10,Gen_250k.divdWIDTH=7;
+wire bclk;
+gen_divd Gen_250k(.reset(rst),.clkin(clk),.clkout(bclk));
+
+defparam Gen_2500.divdFACTOR=1_000,Gen_2500.divdWIDTH=15;
+gen_divd Gen_2500(.reset(rst),.clkin(clk),.clkout(clk_2500));
+
+wire write_start;
+wire write_over;
+wire[7:0]write_add;
+wire [7:0]write_dat;
+
+wire read_start;
+wire read_over;
+wire [7:0]read_add;
+wire [7:0]read_dat;
+assign scl=(write_start)?scl_wr:
+			  (read_start) ?scl_rd:1;
+(* syn_preserve = 1 *)wire scl_wr,scl_rd;
+(* syn_preserve = 1 *)wire en_wr,en_rd;
+wire sda_reg_wr,sda_reg_rd;
+
+wire sda_wr = sda;
+wire sda_rd = sda;
+
+
+assign sda=(en_wr&write_start)?sda_reg_wr:
+			  (en_rd&read_start )?sda_reg_rd:1'bz;	
+
+	ds3231_control ds3231_control
+	(
+		.rst(rst),
+		.clk(bclk),
+		
+		.write_start_uart(write_start_uart),
+		.write_over_uart(write_over_uart),
+		.write_dat_uart(write_dat_uart),
+		
+		.write_start(write_start),
+		.write_over(write_over),
+		.write_add(write_add),
+		.write_dat(write_dat),
+		
+		.read_start(read_start),
+		.read_over(read_over),
+		.read_add(read_add),
+		.read_dat(read_dat));
+		
+
+	i2c_write i2c_write
+	(
+		.rst(rst),
+		.clk(bclk),
+		.sda(sda_wr),
+		.scl(scl_wr),
+		.sda_reg(sda_reg_wr),
+		.en(en_wr),
+
+		.start(write_start),
+		.over(write_over),
+		
+		.deviceaddw(8'b1101_000_0),
+		.wradd(write_add),
+		.wrdat(write_dat)
+	);
+	
+	
+	i2c_read i2c_read
+	(
+		.rst(rst),
+		.clk(bclk),
+		.sda(sda_rd),
+		.scl(scl_rd),
+		.sda_reg(sda_reg_rd),
+		.en(en_rd),
+		
+		.start(read_start),
+		.over(read_over),
+		
+		.deviceaddw(8'b1101_000_0),
+		.rdaddr(read_add),
+		.deviceaddr(8'b1101_000_1),
+		.rddat(read_dat)
+	
+	);
+	
+	
+endmodule

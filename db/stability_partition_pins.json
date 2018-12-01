@@ -1,0 +1,125 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "ds3231_scl",
+					"strict" : false
+				},
+				{
+					"name" : "k64_spi_cs",
+					"strict" : false
+				},
+				{
+					"name" : "k64_spi_clk",
+					"strict" : false
+				},
+				{
+					"name" : "k64_spi_dout",
+					"strict" : false
+				},
+				{
+					"name" : "LED_FPGA0",
+					"strict" : false
+				},
+				{
+					"name" : "LED_FPGA1",
+					"strict" : false
+				},
+				{
+					"name" : "uart_tx",
+					"strict" : false
+				},
+				{
+					"name" : "AD1_CS",
+					"strict" : false
+				},
+				{
+					"name" : "AD1_SCLK",
+					"strict" : false
+				},
+				{
+					"name" : "AD1_MOSI",
+					"strict" : false
+				},
+				{
+					"name" : "AD2_CS",
+					"strict" : false
+				},
+				{
+					"name" : "AD2_SCLK",
+					"strict" : false
+				},
+				{
+					"name" : "AD2_MOSI",
+					"strict" : false
+				},
+				{
+					"name" : "A7K",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[0]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[1]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[2]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[3]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[4]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[5]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[6]",
+					"strict" : false
+				},
+				{
+					"name" : "K64_AD[7]",
+					"strict" : false
+				},
+				{
+					"name" : "ds3231_sda",
+					"strict" : false
+				},
+				{
+					"name" : "K64_ALE",
+					"strict" : false
+				},
+				{
+					"name" : "K64_CS0",
+					"strict" : false
+				},
+				{
+					"name" : "K64_RW",
+					"strict" : false
+				},
+				{
+					"name" : "clk_in2",
+					"strict" : false
+				},
+				{
+					"name" : "K64_CLK",
+					"strict" : false
+				},
+				{
+					"name" : "uart_rx",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

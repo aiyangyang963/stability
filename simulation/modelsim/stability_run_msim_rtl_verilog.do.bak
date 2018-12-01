@@ -1,0 +1,114 @@
+transcript on
+if ![file isdirectory stability_iputf_libs] {
+	file mkdir stability_iputf_libs
+}
+
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+###### Libraries for IPUTF cores 
+###### End libraries for IPUTF cores 
+###### MIF file copy and HDL compilation commands for IPUTF cores 
+
+file copy -force C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core_u0_m0_wo0_cm0_lutmem.hex ./
+file copy -force C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core_u0_m0_wo0_wi0_r0_ra0_count1_lut_lutmem.hex ./
+
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/dspba_library_package.vhd"                      
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/dspba_library.vhd"                              
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_math_pkg_hpfir.vhd"                   
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_lib_pkg_hpfir.vhd"                    
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_controller_hpfir.vhd"
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd"      
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_avalon_streaming_source_hpfir.vhd"    
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/auk_dspip_roundsat_hpfir.vhd"                   
+vlog "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/altera_avalon_sc_fifo.v"                        
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_rtl_core.vhd"                    
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_ast.vhd"                         
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco.vhd"                             
+vcom "C:/Users/Magic_Boy/Desktop/stability/other/filter/fir_ii/fir_2_10hz_nco_sim/fir_2_10hz_nco_tb.vhd"                          
+vlog "C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L_sim/pll_L.vo"                                                          
+vlog "C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H_sim/pll_H.vo"                                                          
+
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/pll {C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L.vo}
+vlib pll_L
+vmap pll_L pll_L
+vlog -vlog01compat -work pll_L +incdir+C:/Users/Magic_Boy/Desktop/stability/other/pll {C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/pll {C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H.vo}
+vlib pll_H
+vmap pll_H pll_H
+vlog -vlog01compat -work pll_H +incdir+C:/Users/Magic_Boy/Desktop/stability/other/pll {C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/sys {C:/Users/Magic_Boy/Desktop/stability/other/sys/top.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/sys {C:/Users/Magic_Boy/Desktop/stability/other/sys/sys_rst.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/sys {C:/Users/Magic_Boy/Desktop/stability/other/sys/LED.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/microchip {C:/Users/Magic_Boy/Desktop/stability/other/microchip/K64_SPI_SLAVE.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/microchip {C:/Users/Magic_Boy/Desktop/stability/other/microchip/flexbus.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_top.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_control.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ads {C:/Users/Magic_Boy/Desktop/stability/other/ads/V11_SPI.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ads {C:/Users/Magic_Boy/Desktop/stability/other/ads/AD2.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/pass_zero_max.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/pass_zero_alarm.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/pass_zero_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ads {C:/Users/Magic_Boy/Desktop/stability/other/ads/ads1_dat_acquire.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ads {C:/Users/Magic_Boy/Desktop/stability/other/ads/ads2_dat_acquire.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c {C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c/ds3231_i2c.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c {C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c/i2c_write.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c {C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c/gen_divd.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c {C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c/i2c_read.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c {C:/Users/Magic_Boy/Desktop/stability/other/ds3231m_i2c/ds3231_control.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ads {C:/Users/Magic_Boy/Desktop/stability/other/ads/ads_top.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/microchip {C:/Users/Magic_Boy/Desktop/stability/other/microchip/microchip_interact.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/ads {C:/Users/Magic_Boy/Desktop/stability/other/ads/ads_dat_decimate.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/shake_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/peak_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/search_peak_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/peak_alarm.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/sys {C:/Users/Magic_Boy/Desktop/stability/other/sys/clock_lf.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/signal_source {C:/Users/Magic_Boy/Desktop/stability/other/signal_source/signal_source.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/signal_detect {C:/Users/Magic_Boy/Desktop/stability/other/signal_detect/signal_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/signal_detect {C:/Users/Magic_Boy/Desktop/stability/other/signal_detect/disconnect_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/signal_detect {C:/Users/Magic_Boy/Desktop/stability/other/signal_detect/trouble_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/timer {C:/Users/Magic_Boy/Desktop/stability/other/timer/timer.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/signal_detect {C:/Users/Magic_Boy/Desktop/stability/other/signal_detect/incident_process.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/baseline_available_detect.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/pass_baseline_pole.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/search_alarm.v}
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect {C:/Users/Magic_Boy/Desktop/stability/other/vibrate_dect/filter_scale_divisor.v}
+vlib uart_115200
+vmap uart_115200 uart_115200
+vlog -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/uart_115200.v}
+vlog -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_counters.v}
+vlog -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_in_deserializer.v}
+vlog -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_out_serializer.v}
+vlog -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_sync_fifo.v}
+vlog -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules {C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/uart_115200_rs232_0.v}
+vlog -vlog01compat -work pll_L +incdir+C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L {C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_L/pll_L_0002.v}
+vlib issp_dat_abs
+vmap issp_dat_abs issp_dat_abs
+vlog -vlog01compat -work issp_dat_abs +incdir+c:/users/magic_boy/desktop/stability/db/ip/issp_dat_abs {c:/users/magic_boy/desktop/stability/db/ip/issp_dat_abs/issp_dat_abs.v}
+vlog -vlog01compat -work issp_dat_abs +incdir+c:/users/magic_boy/desktop/stability/db/ip/issp_dat_abs/submodules {c:/users/magic_boy/desktop/stability/db/ip/issp_dat_abs/submodules/altsource_probe_top.v}
+vlog -vlog01compat -work pll_H +incdir+C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H {C:/Users/Magic_Boy/Desktop/stability/other/pll/pll_H/pll_H_0002.v}
+vlib Qsys_system
+vmap Qsys_system Qsys_system
+vlib fir_2_10hz
+vmap fir_2_10hz fir_2_10hz
+vlib fir_2_10hz_nco
+vmap fir_2_10hz_nco fir_2_10hz_nco
+vlib signal_band_externalL
+vmap signal_band_externalL signal_band_externalL
+vlib signal_band_external
+vmap signal_band_external signal_band_external
+vlib signal_band_internal
+vmap signal_band_internal signal_band_internal
+
+vlog -vlog01compat -work work +incdir+C:/Users/Magic_Boy/Desktop/stability/simulation/modelsim {C:/Users/Magic_Boy/Desktop/stability/simulation/modelsim/top.vt}
+
+vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -L pll_L -L pll_H -L uart_115200 -L issp_dat_abs -L Qsys_system -L fir_2_10hz -L fir_2_10hz_nco -L signal_band_externalL -L signal_band_external -L signal_band_internal -voptargs="+acc"  top_vlg_tst
+
+add wave *
+view structure
+view signals
+run -all

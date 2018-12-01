@@ -1,0 +1,10 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst signal_band_externalL -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst signal_band_externalL.nco_ii_0 -pg 1 -lvl 1 -y 30
+preplace netloc EXPORT<net_container>signal_band_externalL</net_container>(SLAVE)nco_ii_0.out,(SLAVE)signal_band_externalL.out) 1 0 1 NJ
+preplace netloc EXPORT<net_container>signal_band_externalL</net_container>(SLAVE)signal_band_externalL.in,(SLAVE)nco_ii_0.in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>signal_band_externalL</net_container>(SLAVE)signal_band_externalL.rst,(SLAVE)nco_ii_0.rst) 1 0 1 NJ
+preplace netloc EXPORT<net_container>signal_band_externalL</net_container>(SLAVE)nco_ii_0.clk,(SLAVE)signal_band_externalL.clk) 1 0 1 NJ
+levelinfo -pg 1 0 30 180
+levelinfo -hier signal_band_externalL 40 70 150

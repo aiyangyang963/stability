@@ -1,0 +1,114 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Magic_Boy/Desktop/stability/other/fft/fft_ip/fft/simulation/mentor
+vfft
+!s110 1501149894
+!i10b 1
+!s100 dEU_Z^?<95Ld3m=12hCgY0
+IbVOzMD@F01ZWEX4mUY2QY2
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1498613923
+8./../fft.v
+F./../fft.v
+L0 6
+Z2 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1501149894.000000
+!s107 ./../fft.v|
+!s90 -reportprogress|300|./../fft.v|
+!i113 1
+Z3 tCvgOpt 0
+vled_test
+!s110 1498113193
+!i10b 1
+!s100 38LgZTNTL1Aa>@mAG:e1:2
+I6dR0JIHE]MQ[HmoLTVP0X1
+R1
+R0
+w1496710684
+8C:/Users/Magic_Boy/Desktop/stability/other/sys/LED.v
+FC:/Users/Magic_Boy/Desktop/stability/other/sys/LED.v
+L0 2
+R2
+r1
+!s85 0
+31
+!s108 1498113193.000000
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/sys/LED.v|
+!s90 -reportprogress|300|-work|work|C:/Users/Magic_Boy/Desktop/stability/other/sys/LED.v|
+!i113 1
+Z4 o-work work
+R3
+vnco_nco_ii_0
+!s110 1498113237
+!i10b 1
+!s100 jK]8f69dXz<FPf_7Qg=053
+I;VGNi3KXH4SJRNZTMbgJ92
+R1
+R0
+w1498098441
+8C:/Users/Magic_Boy/Desktop/stability/other/nco/synthesis/submodules/nco_nco_ii_0.v
+FC:/Users/Magic_Boy/Desktop/stability/other/nco/synthesis/submodules/nco_nco_ii_0.v
+L0 23
+R2
+r1
+!s85 0
+31
+!s108 1498113237.000000
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/nco/synthesis/submodules/nco_nco_ii_0.v|
+!s90 -reportprogress|300|-work|work|C:/Users/Magic_Boy/Desktop/stability/other/nco/synthesis/submodules/nco_nco_ii_0.v|
+!i113 1
+R4
+R3
+vsys_rst
+Z5 !s110 1498113194
+!i10b 1
+!s100 hS1=_Gn@Qmg@MAHzhHC_32
+IEZ<Glj@NdKM0j_f[QD^5d3
+R1
+R0
+w1497341626
+8C:/Users/Magic_Boy/Desktop/stability/other/sys/sys_rst.v
+FC:/Users/Magic_Boy/Desktop/stability/other/sys/sys_rst.v
+L0 3
+R2
+r1
+!s85 0
+31
+Z6 !s108 1498113194.000000
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/sys/sys_rst.v|
+!s90 -reportprogress|300|-work|work|C:/Users/Magic_Boy/Desktop/stability/other/sys/sys_rst.v|
+!i113 1
+R4
+R3
+vtop_th
+R5
+!i10b 1
+!s100 SEV5jam;93PG>kPKzYQh;3
+I>nNGgmDGmATb9zZ7Ti3^Z3
+R1
+R0
+w1497336403
+8C:/Users/Magic_Boy/Desktop/stability/other/sys/top_th.v
+FC:/Users/Magic_Boy/Desktop/stability/other/sys/top_th.v
+L0 4
+R2
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/sys/top_th.v|
+!s90 -reportprogress|30|-work|work|C:/Users/Magic_Boy/Desktop/stability/other/sys/top_th.v|
+!i113 1
+R4
+R3

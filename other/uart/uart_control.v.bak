@@ -1,0 +1,268 @@
+`timescale 1ns / 1ns
+
+module uart_control(
+					 input clk,
+					 
+					 input to_uart_ready,
+					 output reg to_uart_valid,
+					 output reg[7:0]to_uart_data,
+					 
+					 input from_uart_valid,
+					 input [7:0]from_uart_data,
+					 
+					 output reg [7:0]tx_state,
+					 
+					 input [7:0]ALARM_Overview_Tflag_ads1,
+					 input [7:0]ALARM_Ch03_Tfag_ads1,
+					 input [7:0]ALARM_Ch03_Aflag_ads1,
+					 input [15:0]Ch0_Data_ads1,
+					 input [15:0]Ch1_Data_ads1,
+					 input [15:0]Ch2_Data_ads1,
+					 input [15:0]Ch3_Data_ads1,
+					 
+					 input [7:0]ALARM_Overview_Tflag_ads2,
+					 input [7:0]ALARM_Ch03_Tfag_ads2,
+					 input [7:0]ALARM_Ch03_Aflag_ads2,
+					 input [15:0]Ch0_Data_ads2,
+					 input [15:0]Ch1_Data_ads2,
+					 input [15:0]Ch2_Data_ads2,
+					 input [15:0]Ch3_Data_ads2,
+					 
+					 output reg[24:0]ddr_add,
+					 output reg ddr_atom_start,
+					 
+					 output reg [7:0]time_message_cnt,
+					 output reg [7:0]year,
+					 output reg [7:0]month,
+					 output reg [7:0]day,
+					 output reg [7:0]hour,
+					 output reg [7:0]minute,
+					 output reg [7:0]second
+					 );
+//send ads2 data to uart
+ wire [7:0]dat_temp_00 = ALARM_Overview_Tflag_ads2;
+ wire [7:0]dat_temp_01 = ALARM_Ch03_Tfag_ads2;
+ wire [7:0]dat_temp_02 = ALARM_Ch03_Aflag_ads2;
+ wire [7:0]dat_temp_03 = Ch0_Data_ads2[7:0];
+ wire [7:0]dat_temp_04 = Ch0_Data_ads2[15:8];
+ wire [7:0]dat_temp_05 = Ch1_Data_ads2[7:0];
+ wire [7:0]dat_temp_06 = Ch1_Data_ads2[15:8];
+ wire [7:0]dat_temp_07 = Ch2_Data_ads2[7:0];
+ wire [7:0]dat_temp_08 = Ch2_Data_ads2[15:8];
+ wire [7:0]dat_temp_09 = Ch3_Data_ads2[7:0];
+ wire [7:0]dat_temp_0a = Ch3_Data_ads2[15:8];
+ 
+ wire [7:0]dat_temp_0b = ALARM_Overview_Tflag_ads1;
+ wire [7:0]dat_temp_0c = ALARM_Ch03_Tfag_ads1;
+ wire [7:0]dat_temp_0d = ALARM_Ch03_Aflag_ads1;
+ wire [7:0]dat_temp_0e = Ch0_Data_ads1[7:0];
+ wire [7:0]dat_temp_0f = Ch0_Data_ads1[15:8];
+ wire [7:0]dat_temp_10 = Ch1_Data_ads1[7:0];
+ wire [7:0]dat_temp_11 = Ch1_Data_ads1[15:8];
+ wire [7:0]dat_temp_12 = Ch2_Data_ads1[7:0];
+ wire [7:0]dat_temp_13 = Ch2_Data_ads1[15:8];
+ wire [7:0]dat_temp_14 = Ch3_Data_ads1[7:0];
+ wire [7:0]dat_temp_15 = Ch3_Data_ads1[15:8];
+ 
+ wire [7:0]dat_temp_16 = 8'haa;
+//send data control signal edge detect					 
+wire 	pos_to_uart_ready,neg_to_uart_ready;
+reg to_uart_ready_r0,to_uart_ready_r1,to_uart_ready_r2;
+always@(posedge clk)
+	begin
+		to_uart_ready_r0<=to_uart_ready;
+		to_uart_ready_r1<=to_uart_ready_r0;
+		to_uart_ready_r2<=to_uart_ready_r1;
+	end
+
+assign pos_to_uart_ready=(~to_uart_ready_r2)&to_uart_ready_r1;
+assign neg_to_uart_ready=to_uart_ready_r2&(~to_uart_ready_r1);   
+
+wire pos_to_uart_valid;
+reg to_uart_valid_r0,to_uart_valid_r1,to_uart_valid_r2;
+always@(posedge clk)
+	begin
+		to_uart_valid_r0<=to_uart_valid;
+		to_uart_valid_r1<=to_uart_valid_r0;
+		to_uart_valid_r2<=to_uart_valid_r1;
+	end
+
+assign pos_to_uart_valid=(~to_uart_valid_r2)&to_uart_valid_r1;
+assign neg_to_uart_valid=to_uart_valid_r2&(~to_uart_valid_r1);    
+//receive data control signal edge detect
+wire pos_from_uart_valid;
+reg from_uart_valid_r0,from_uart_valid_r1,from_uart_valid_r2;
+always@(posedge clk)
+	begin
+		from_uart_valid_r0<=from_uart_valid;
+		from_uart_valid_r1<=from_uart_valid_r0;
+		from_uart_valid_r2<=from_uart_valid_r1;
+	end
+
+assign pos_from_uart_valid=(~from_uart_valid_r2)&from_uart_valid_r1;
+assign neg_from_uart_valid=from_uart_valid_r2&(~from_uart_valid_r1); 
+
+//reg [7:0]tx_state;	
+reg [7:0]to_uart_data_cnt;	
+reg [7:0]ddr_add_cnt=4;
+
+always@(posedge clk)
+	begin
+		case(tx_state)
+				0:begin
+					if(from_uart_data==8'h55)tx_state<=1;
+					else if(from_uart_data==8'h66)
+						begin
+							if(from_uart_valid)tx_state<=10;
+							else tx_state<=0;
+						end
+					else tx_state <=0;
+					ddr_atom_start<=0;
+					ddr_add		  <=ddr_add;
+					  end
+				1:begin
+					//send data to uart
+					if((to_uart_ready)&&((to_uart_data_cnt==8'h15)))tx_state<=2;
+					else tx_state<=1;
+					to_uart_valid = 1;
+					//receive time message from uart
+					if(time_message_cnt==0)
+							begin
+								time_message_cnt<=6;
+							end
+						else
+							begin
+								if(pos_from_uart_valid)time_message_cnt<=time_message_cnt-1;
+								else	time_message_cnt	<=time_message_cnt;
+								if(from_uart_valid)
+									begin
+										case(time_message_cnt)
+											6:year	<=from_uart_data;
+											5:month	<=from_uart_data;
+											4:day		<=from_uart_data;
+											3:hour	<=from_uart_data;
+											2:minute	<=from_uart_data;
+											1:second	<=from_uart_data;
+											0:
+												begin
+													year	<=year;
+													month	<=month;
+													day	<=day;
+													hour	<=hour;
+													minute<=minute;
+													second<=second;
+												end
+											default:
+												begin
+													year	<=year;
+													month	<=month;
+													day	<=day;
+													hour	<=hour;
+													minute<=minute;
+													second<=second;
+												end 
+										endcase
+									end
+								else 
+									begin
+										year	<=year;
+										month	<=month;
+										day	<=day;
+										hour	<=hour;
+										minute<=minute;
+										second<=second;
+									end
+							end
+					  end
+				2:begin
+					tx_state<=0;
+					to_uart_valid<=0;
+					  end
+					  
+			   10:begin
+						if(ddr_add_cnt==0)
+							begin
+								ddr_add_cnt<=4;
+								tx_state<=0;
+								ddr_atom_start<=1;
+							end
+						else
+							begin
+								if(pos_from_uart_valid)ddr_add_cnt<=ddr_add_cnt-1;
+								else	ddr_add_cnt	<=ddr_add_cnt;
+								if(from_uart_valid)
+									begin
+										case(ddr_add_cnt)
+											4:ddr_add			<=ddr_add;
+											3:ddr_add[7:0]		<=from_uart_data;
+											2:ddr_add[15:8]	<=from_uart_data;
+											1:ddr_add[23:16]	<=from_uart_data;
+											0:ddr_add			<=ddr_add;
+											default:ddr_add	<=ddr_add;
+										endcase
+									end
+								else ddr_add	<=ddr_add;
+								tx_state<=10;
+							end
+					end
+				default:begin
+							tx_state				<=0;
+							to_uart_valid		<=0;
+							ddr_add_cnt			<=4;
+							ddr_add				<=0;
+							time_message_cnt	<=6;
+							year		<=0;
+							month		<=0;
+							day		<=0;
+							hour		<=0;
+							minute	<=0;
+							second	<=0;
+					  end
+		endcase
+	end					 
+
+always@(posedge clk)
+	begin
+		if (to_uart_data_cnt==8'h16)
+			begin
+				to_uart_data<=dat_temp_00;
+				to_uart_data_cnt<=0;
+			end
+		else if ((to_uart_valid)&&(tx_state==1))
+			begin
+				to_uart_data_cnt<=to_uart_data_cnt+1;
+				case(to_uart_data_cnt)
+					8'h00:to_uart_data<=dat_temp_01;
+					8'h01:to_uart_data<=dat_temp_02;
+					8'h02:to_uart_data<=dat_temp_03;
+					8'h03:to_uart_data<=dat_temp_04;
+					8'h04:to_uart_data<=dat_temp_05;
+					8'h05:to_uart_data<=dat_temp_06;
+					8'h06:to_uart_data<=dat_temp_07;
+					8'h07:to_uart_data<=dat_temp_08;
+					8'h08:to_uart_data<=dat_temp_09;
+					8'h09:to_uart_data<=dat_temp_0a;
+					8'h0a:to_uart_data<=dat_temp_0b;
+					
+					8'h0b:to_uart_data<=dat_temp_0c;
+					8'h0c:to_uart_data<=dat_temp_0d;
+					8'h0d:to_uart_data<=dat_temp_0e;
+					8'h0e:to_uart_data<=dat_temp_0f;
+					8'h0f:to_uart_data<=dat_temp_10;
+					8'h10:to_uart_data<=dat_temp_11;
+					8'h11:to_uart_data<=dat_temp_12;
+					8'h12:to_uart_data<=dat_temp_13;
+					8'h13:to_uart_data<=dat_temp_14;
+					8'h14:to_uart_data<=dat_temp_15;
+					8'h15:to_uart_data<=dat_temp_16;
+					default:to_uart_data<=to_uart_data;
+				endcase
+			end
+		else 
+			begin
+				to_uart_data<=to_uart_data;
+				to_uart_data_cnt<=to_uart_data_cnt;
+			end
+	end	
+	
+endmodule

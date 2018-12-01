@@ -1,0 +1,28 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\issp\issp_dat_abs.qsys --block-symbol-file --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\issp\issp_dat_abs --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading issp/issp_dat_abs.qsys
+Progress: Reading input file
+Progress: Adding in_system_sources_probes_0 [altera_in_system_sources_probes 16.1]
+Progress: Parameterizing module in_system_sources_probes_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\issp\issp_dat_abs.qsys --synthesis=VERILOG --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\issp\issp_dat_abs\synthesis --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading issp/issp_dat_abs.qsys
+Progress: Reading input file
+Progress: Adding in_system_sources_probes_0 [altera_in_system_sources_probes 16.1]
+Progress: Parameterizing module in_system_sources_probes_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: issp_dat_abs: Generating issp_dat_abs "issp_dat_abs" for QUARTUS_SYNTH
+Info: in_system_sources_probes_0: "issp_dat_abs" instantiated altera_in_system_sources_probes "in_system_sources_probes_0"
+Info: issp_dat_abs: Done "issp_dat_abs" with 2 modules, 2 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

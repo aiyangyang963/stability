@@ -1,0 +1,142 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Magic_Boy/Desktop/stability/simulation/modelsim
+valtera_up_rs232_counters
+Z1 !s110 1501208911
+!i10b 1
+!s100 g9Lz=2g>^?fJWGo?k6FIM1
+IknYKf5;=Uh:8cdNF2>BS11
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1493290013
+8C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_counters.v
+FC:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_counters.v
+Z4 L0 29
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z6 !s108 1501208911.000000
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_counters.v|
+!s90 -reportprogress|300|-vlog01compat|-work|uart_115200|+incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules|C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_counters.v|
+!i113 1
+Z7 o-vlog01compat -work uart_115200
+Z8 !s92 -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules
+Z9 tCvgOpt 0
+valtera_up_rs232_in_deserializer
+R1
+!i10b 1
+!s100 hSQGWK2XE=ja:`El]N;1a3
+IF3o[RNlA5LJoY3eSbobXE0
+R2
+R0
+R3
+8C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_in_deserializer.v
+FC:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_in_deserializer.v
+Z10 L0 28
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_in_deserializer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|uart_115200|+incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules|C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_in_deserializer.v|
+!i113 1
+R7
+R8
+R9
+valtera_up_rs232_out_serializer
+R1
+!i10b 1
+!s100 :akFWh]G]CDl];i9FfkBA0
+IeL_cd_>8RV9Y?YKHlbfiR0
+R2
+R0
+R3
+8C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_out_serializer.v
+FC:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_out_serializer.v
+R10
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_out_serializer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|uart_115200|+incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules|C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_rs232_out_serializer.v|
+!i113 1
+R7
+R8
+R9
+valtera_up_sync_fifo
+R1
+!i10b 1
+!s100 d7WZV`gzKOF0bG`8>8mG32
+IQO9>TULPoPO3CA`S^]Ck12
+R2
+R0
+R3
+8C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_sync_fifo.v
+FC:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_sync_fifo.v
+R10
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_sync_fifo.v|
+!s90 -reportprogress|300|-vlog01compat|-work|uart_115200|+incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules|C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/altera_up_sync_fifo.v|
+!i113 1
+R7
+R8
+R9
+vuart_115200
+R1
+!i10b 1
+!s100 W2h^?8mZiEN<g22UdM:oo2
+ICG?kS<QeeK1fCo<2DBinU3
+R2
+R0
+R3
+8C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/uart_115200.v
+FC:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/uart_115200.v
+L0 6
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/uart_115200.v|
+!s90 -reportprogress|300|-vlog01compat|-work|uart_115200|+incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis|C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/uart_115200.v|
+!i113 1
+R7
+!s92 -vlog01compat -work uart_115200 +incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis
+R9
+vuart_115200_rs232_0
+R1
+!i10b 1
+!s100 gbH14;Sg1AgfcajAIa@`63
+I]dP<Db:nP=gJbMC2Rb8?i1
+R2
+R0
+R3
+8C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/uart_115200_rs232_0.v
+FC:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/uart_115200_rs232_0.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/uart_115200_rs232_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|uart_115200|+incdir+C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules|C:/Users/Magic_Boy/Desktop/stability/other/uart/uart_115200/synthesis/submodules/uart_115200_rs232_0.v|
+!i113 1
+R7
+R8
+R9

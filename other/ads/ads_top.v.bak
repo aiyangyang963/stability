@@ -1,0 +1,11 @@
+`timescale 1ns / 1ns
+
+module ads_top(
+    output wire  AD1_CS,AD1_SCLK,AD1_SDO,
+	 input AD1_SDI,RESETN,clk,
+	 
+	 output reg [15:0]pkg_num,
+	 output reg[15:0]receive_data
+    );
+	 
+endmodule

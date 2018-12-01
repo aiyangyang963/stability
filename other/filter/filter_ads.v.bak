@@ -1,0 +1,24 @@
+`timescale 1ns / 1ns
+
+module filter_ads(
+	 input rst,clk,clk_ads,
+	 
+    output wire  cs_ads1,sclk_ads1,sdo_ads1,
+	 output wire  cs_ads2,sclk_ads2,sdo_ads2,
+	 input sdi_ads1,sdi_ads2,
+	 
+	 output wire [15:0]pkg_num_ads1,pkg_num_ads2,
+	 output wire[15:0]receive_data_ads1,receive_data_ads2,
+	 
+	 output wire [7:0]ALARM_Overview_Tflag_ads1,ALARM_Overview_Tflag_ads2,
+	 output wire [7:0]ALARM_Ch03_Tfag_ads1,ALARM_Ch03_Tfag_ads2,
+	 output wire [7:0]ALARM_Ch03_Aflag_ads1,ALARM_Ch03_Aflag_ads2,
+	 output wire [15:0]Ch0_Data_ads1,Ch0_Data_ads2,
+	 output wire [15:0]Ch1_Data_ads1,Ch1_Data_ads2,
+	 output wire [15:0]Ch2_Data_ads1,Ch2_Data_ads2,
+	 output wire [15:0]Ch3_Data_ads1,Ch3_Data_ads2,
+	 output wire Ch0_Data_en_ads1,Ch0_Data_en_ads2,
+	 output wire Ch1_Data_en_ads1,Ch1_Data_en_ads2,
+	 output wire Ch2_Data_en_ads1,Ch2_Data_en_ads2,
+	 output wire Ch3_Data_en_ads1,Ch3_Data_en_ads2
+    );

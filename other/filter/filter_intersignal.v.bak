@@ -1,0 +1,12 @@
+`timescale 1ns / 1ns
+
+module filter_intersignal(
+	 input rst,
+	 input clk1,//50M
+	 input clk2,//5M
+	 output wire clk_500,
+	 
+	 input [11:0]signal_nco,
+	 input sample_clk
+	 
+    );

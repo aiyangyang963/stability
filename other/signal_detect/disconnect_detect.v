@@ -1,0 +1,363 @@
+`timescale 1ns / 1ns
+module disconnect_detect(
+    input clk,rst,
+	 	 
+	 input [15:0]Ch0_Data,
+	 input [15:0]Ch1_Data,
+	 input [15:0]Ch2_Data,
+	 input [15:0]Ch3_Data,
+	 input Ch0_Data_en,
+	 input Ch1_Data_en,
+	 input Ch2_Data_en,
+	 input Ch3_Data_en,
+	 
+	 output wire Ch0_disconnect,
+	 output wire Ch1_disconnect,
+	 output wire Ch2_disconnect,
+	 output wire Ch3_disconnect
+	 );
+	 
+parameter Ch0_disconnect_line = 16'h1000;
+parameter Ch1_disconnect_line = 16'h1000;
+parameter Ch2_disconnect_line = 16'h1000;
+parameter Ch3_disconnect_line = 16'h1000;
+
+wire pos_Ch0_Data_en,neg_Ch0_Data_en;
+wire pos_Ch1_Data_en,neg_Ch1_Data_en;
+wire pos_Ch2_Data_en,neg_Ch2_Data_en;
+wire pos_Ch3_Data_en,neg_Ch3_Data_en;
+
+reg Ch0_Data_en_r0,Ch0_Data_en_r1,Ch0_Data_en_r2;
+reg Ch1_Data_en_r0,Ch1_Data_en_r1,Ch1_Data_en_r2;
+reg Ch2_Data_en_r0,Ch2_Data_en_r1,Ch2_Data_en_r2;
+reg Ch3_Data_en_r0,Ch3_Data_en_r1,Ch3_Data_en_r2;
+
+always@(posedge clk)
+	begin
+		Ch0_Data_en_r0<=Ch0_Data_en;
+		Ch0_Data_en_r1<=Ch0_Data_en_r0;
+		Ch0_Data_en_r2<=Ch0_Data_en_r1;
+		
+		Ch1_Data_en_r0<=Ch1_Data_en;
+		Ch1_Data_en_r1<=Ch1_Data_en_r0;
+		Ch1_Data_en_r2<=Ch1_Data_en_r1;
+		
+		Ch2_Data_en_r0<=Ch2_Data_en;
+		Ch2_Data_en_r1<=Ch2_Data_en_r0;
+		Ch2_Data_en_r2<=Ch2_Data_en_r1;
+		
+		Ch3_Data_en_r0<=Ch3_Data_en;
+		Ch3_Data_en_r1<=Ch3_Data_en_r0;
+		Ch3_Data_en_r2<=Ch3_Data_en_r1;
+	end
+
+assign pos_Ch0_Data_en=(~Ch0_Data_en_r2)&Ch0_Data_en_r1;
+assign pos_Ch1_Data_en=(~Ch1_Data_en_r2)&Ch1_Data_en_r1;
+assign pos_Ch2_Data_en=(~Ch2_Data_en_r2)&Ch2_Data_en_r1;
+assign pos_Ch3_Data_en=(~Ch3_Data_en_r2)&Ch3_Data_en_r1;
+
+assign neg_Ch0_Data_en=Ch0_Data_en_r2&(~Ch0_Data_en_r1); 
+assign neg_Ch1_Data_en=Ch1_Data_en_r2&(~Ch1_Data_en_r1); 
+assign neg_Ch2_Data_en=Ch2_Data_en_r2&(~Ch2_Data_en_r1); 
+assign neg_Ch3_Data_en=Ch3_Data_en_r2&(~Ch3_Data_en_r1); 
+
+
+reg [15:0]Ch0_Data_temp;
+reg [15:0]Ch1_Data_temp;
+reg [15:0]Ch2_Data_temp;
+reg [15:0]Ch3_Data_temp;
+
+wire [7:0]Ch0_minute;
+wire [7:0]Ch1_minute;
+wire [7:0]Ch2_minute;
+wire [7:0]Ch3_minute;
+
+reg Ch0_timer_clear;
+reg Ch1_timer_clear;
+reg Ch2_timer_clear;
+reg Ch3_timer_clear;
+
+(*syn_preserve = 1*)reg [7:0]Ch0_disconnect_state,Ch1_disconnect_state,
+									  Ch2_disconnect_state,Ch3_disconnect_state;
+assign Ch0_disconnect = ((Ch0_disconnect_state==0)||(Ch0_disconnect_state==1))?1:0;
+assign Ch1_disconnect = ((Ch1_disconnect_state==0)||(Ch1_disconnect_state==1))?1:0;
+assign Ch2_disconnect = ((Ch2_disconnect_state==0)||(Ch2_disconnect_state==1))?1:0;
+assign Ch3_disconnect = ((Ch3_disconnect_state==0)||(Ch3_disconnect_state==1))?1:0;
+	
+always@(posedge clk)
+	begin
+		case(Ch0_disconnect_state)//channel0 disconnect detect
+				0://clear_ch0_timer
+					begin
+						Ch0_timer_clear<=1;
+						Ch0_disconnect_state<=1;
+						Ch0_Data_temp<=0;
+					end
+				1://disconnect
+					begin
+						Ch0_timer_clear<=0;
+						if((Ch0_minute>=0)&&(Ch0_minute<1))
+							begin
+								if(pos_Ch0_Data_en)
+									begin
+										if(Ch0_Data>=Ch0_Data_temp)Ch0_Data_temp<=Ch0_Data;
+										else Ch0_Data_temp<=Ch0_Data_temp;
+									end
+								else Ch0_Data_temp<=Ch0_Data_temp;
+								if(Ch0_Data_temp>Ch0_disconnect_line)Ch0_disconnect_state<=2;
+								else Ch0_disconnect_state<=1;
+							end
+						else
+							begin
+								Ch0_disconnect_state<=0;
+							end
+					end
+				2://clear_ch0_timer	
+					begin
+						Ch0_timer_clear<=1;
+						Ch0_disconnect_state<=3;
+						Ch0_Data_temp<=0;
+					end
+				3://connect
+					begin
+						Ch0_timer_clear<=0;
+						if((Ch0_minute>=0)&&(Ch0_minute<1))
+							begin
+								if(pos_Ch0_Data_en)
+									begin
+										if(Ch0_Data>=Ch0_Data_temp)Ch0_Data_temp<=Ch0_Data;
+										else Ch0_Data_temp<=Ch0_Data_temp;
+									end
+								else Ch0_Data_temp<=Ch0_Data_temp;
+							end
+						else
+							begin
+								if(Ch0_Data_temp>Ch0_disconnect_line)Ch0_disconnect_state<=2;
+								else Ch0_disconnect_state<=0;
+							end
+					end
+				default:
+					begin
+						Ch0_timer_clear<=1;
+						Ch0_disconnect_state<=0;
+						Ch0_Data_temp<=0;
+					end
+		endcase
+		
+		case(Ch1_disconnect_state)//channel1 disconnect detect
+				0://clear_ch1_timer
+					begin
+						Ch1_timer_clear<=1;
+						Ch1_disconnect_state<=1;
+						Ch1_Data_temp<=0;
+					end
+				1://disconnect
+					begin
+						Ch1_timer_clear<=0;
+						if((Ch1_minute>=0)&&(Ch1_minute<1))
+							begin
+								if(pos_Ch1_Data_en)
+									begin
+										if(Ch1_Data>=Ch1_Data_temp)Ch1_Data_temp<=Ch1_Data;
+										else Ch1_Data_temp<=Ch1_Data_temp;
+									end
+								else Ch1_Data_temp<=Ch1_Data_temp;
+								if(Ch1_Data_temp>Ch1_disconnect_line)Ch1_disconnect_state<=2;
+								else Ch1_disconnect_state<=1;
+							end
+						else
+							begin
+								Ch1_disconnect_state<=0;
+							end
+					end
+				2://clear_ch1_timer	
+					begin
+						Ch1_timer_clear<=1;
+						Ch1_disconnect_state<=3;
+						Ch1_Data_temp<=0;
+					end
+				3://connect
+					begin
+						Ch1_timer_clear<=0;
+						if((Ch1_minute>=0)&&(Ch1_minute<1))
+							begin
+								if(pos_Ch1_Data_en)
+									begin
+										if(Ch1_Data>=Ch1_Data_temp)Ch1_Data_temp<=Ch1_Data;
+										else Ch1_Data_temp<=Ch1_Data_temp;
+									end
+								else Ch1_Data_temp<=Ch1_Data_temp;
+							end
+						else
+							begin
+								if(Ch1_Data_temp>Ch1_disconnect_line)Ch1_disconnect_state<=2;
+								else Ch1_disconnect_state<=0;
+							end
+					end
+				default:
+					begin
+						Ch1_timer_clear<=1;
+						Ch1_disconnect_state<=0;
+						Ch1_Data_temp<=0;
+					end
+		endcase
+		
+		case(Ch2_disconnect_state)//channel2 disconnect detect
+				0://clear_ch2_timer
+					begin
+						Ch2_timer_clear<=1;
+						Ch2_disconnect_state<=1;
+						Ch2_Data_temp<=0;
+					end
+				1://disconnect
+					begin
+						Ch2_timer_clear<=0;
+						if((Ch2_minute>=0)&&(Ch2_minute<1))
+							begin
+								if(pos_Ch2_Data_en)
+									begin
+										if(Ch2_Data>=Ch2_Data_temp)Ch2_Data_temp<=Ch2_Data;
+										else Ch2_Data_temp<=Ch2_Data_temp;
+									end
+								else Ch2_Data_temp<=Ch2_Data_temp;
+								if(Ch2_Data_temp>Ch2_disconnect_line)Ch2_disconnect_state<=2;
+								else Ch2_disconnect_state<=1;
+							end
+						else
+							begin
+								Ch2_disconnect_state<=0;
+							end
+					end
+				2://clear_ch2_timer	
+					begin
+						Ch2_timer_clear<=1;
+						Ch2_disconnect_state<=3;
+						Ch2_Data_temp<=0;
+					end
+				3://connect
+					begin
+						Ch2_timer_clear<=0;
+						if((Ch2_minute>=0)&&(Ch2_minute<1))
+							begin
+								if(pos_Ch2_Data_en)
+									begin
+										if(Ch2_Data>=Ch2_Data_temp)Ch2_Data_temp<=Ch2_Data;
+										else Ch2_Data_temp<=Ch2_Data_temp;
+									end
+								else Ch2_Data_temp<=Ch2_Data_temp;
+							end
+						else
+							begin
+								if(Ch2_Data_temp>Ch2_disconnect_line)Ch2_disconnect_state<=2;
+								else Ch2_disconnect_state<=0;
+							end
+					end
+				default:
+					begin
+						Ch2_timer_clear<=1;
+						Ch2_disconnect_state<=0;
+						Ch2_Data_temp<=0;
+					end
+		endcase
+		
+		case(Ch3_disconnect_state)//channel3 disconnect detect
+				0://clear_ch3_timer
+					begin
+						Ch3_timer_clear<=1;
+						Ch3_disconnect_state<=1;
+						Ch3_Data_temp<=0;
+					end
+				1://disconnect
+					begin
+						Ch3_timer_clear<=0;
+						if((Ch3_minute>=0)&&(Ch3_minute<1))
+							begin
+								if(pos_Ch3_Data_en)
+									begin
+										if(Ch3_Data>=Ch3_Data_temp)Ch3_Data_temp<=Ch3_Data;
+										else Ch3_Data_temp<=Ch3_Data_temp;
+									end
+								else Ch3_Data_temp<=Ch3_Data_temp;
+								if(Ch3_Data_temp>Ch3_disconnect_line)Ch3_disconnect_state<=2;
+								else Ch3_disconnect_state<=1;
+							end
+						else
+							begin
+								Ch3_disconnect_state<=0;
+							end
+					end
+				2://clear_ch3_timer	
+					begin
+						Ch3_timer_clear<=1;
+						Ch3_disconnect_state<=3;
+						Ch3_Data_temp<=0;
+					end
+				3://connect
+					begin
+						Ch3_timer_clear<=0;
+						if((Ch3_minute>=0)&&(Ch3_minute<1))
+							begin
+								if(pos_Ch3_Data_en)
+									begin
+										if(Ch3_Data>=Ch3_Data_temp)Ch3_Data_temp<=Ch3_Data;
+										else Ch3_Data_temp<=Ch3_Data_temp;
+									end
+								else Ch3_Data_temp<=Ch3_Data_temp;
+							end
+						else
+							begin
+								if(Ch3_Data_temp>Ch3_disconnect_line)Ch3_disconnect_state<=2;
+								else Ch3_disconnect_state<=0;
+							end
+					end
+				default:
+					begin
+						Ch3_timer_clear<=1;
+						Ch3_disconnect_state<=0;
+						Ch3_Data_temp<=0;
+					end
+		endcase
+	end
+
+
+timer timer_Ch0(
+		.clk(clk),//50M
+		.rst(rst),
+		.clear(Ch0_timer_clear),
+		
+		.timecnt(),       
+		.minute(Ch0_minute),
+		.second(),
+		.msecond());
+		
+timer timer_Ch1(
+		.clk(clk),//50M
+		.rst(rst),
+		.clear(Ch1_timer_clear),
+		
+		.timecnt(),       
+		.minute(Ch1_minute),
+		.second(),
+		.msecond());
+		
+timer timer_Ch2(
+		.clk(clk),//50M
+		.rst(rst),
+		.clear(Ch2_timer_clear),
+		
+		.timecnt(),       
+		.minute(Ch2_minute),
+		.second(),
+		.msecond());
+		
+timer timer_Ch3(
+		.clk(clk),//50M
+		.rst(rst),
+		.clear(Ch3_timer_clear),
+		
+		.timecnt(),       
+		.minute(Ch3_minute),
+		.second(),
+		.msecond());
+	 
+endmodule

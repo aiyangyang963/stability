@@ -1,0 +1,26 @@
+`timescale 1ns / 1ps
+module signal_store(
+	input clk,rst,
+	 
+	output wire [13:0]mem_a,            //memory.mem_a
+	output wire [2:0] mem_ba,           //.mem_ba
+	output wire [0:0] mem_ck,           //.mem_ck
+	output wire [0:0]	mem_ck_n,         //.mem_ck_n
+	output wire mem_cke,                   //.mem_cke
+	output wire mem_cs_n,                  //.mem_cs_n
+	output wire [1:0] mem_dm,           //.mem_dm
+	output wire mem_ras_n,                 //.mem_ras_n
+	output wire mem_cas_n,                 //.mem_cas_n
+	output wire mem_we_n,                  //.mem_we_n
+	output wire mem_reset_n,               //.mem_reset_n
+	inout  wire [15:0]mem_dq,           //.mem_dq
+	inout  wire [1:0] mem_dqs,          //.mem_dqs
+	inout  wire [1:0] mem_dqs_n,        //.mem_dqs_n
+	output wire mem_odt,                   //.mem_odt
+	input  wire oct_rzqin,                 //oct.rzqin
+	 
+	 );
+	 
+	
+	 
+endmodule

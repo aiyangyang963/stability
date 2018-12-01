@@ -1,0 +1,30 @@
+17:48:44 **** Incremental Build of configuration Nios II for project Qsys_First ****
+make all 
+Info: Building ../Qsys_First_bsp/
+D:/intelFPGA/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Qsys_First_bsp/
+[BSP build complete]
+[Qsys_First build complete]
+17:48:50 **** Build of configuration Nios II for project Qsys_First ****
+make all 
+Info: Building ../Qsys_First_bsp/
+D:/intelFPGA/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Qsys_First_bsp/
+[BSP build complete]
+[Qsys_First build complete]
+17:49:35 **** Incremental Build of configuration Nios II for project Qsys_First ****
+make all 
+Info: Building ../Qsys_First_bsp/
+D:/intelFPGA/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Qsys_First_bsp/
+[BSP build complete]
+[Qsys_First build complete]
+17:50:09 **** Build of configuration Nios II for project Qsys_First ****
+make all 
+Info: Building ../Qsys_First_bsp/
+D:/intelFPGA/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Qsys_First_bsp/
+[BSP build complete]
+[Qsys_First build complete]
+17:50:10 **** Incremental Build of configuration Nios II for project Qsys_First ****
+make all 
+Info: Building ../Qsys_First_bsp/
+D:/intelFPGA/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Qsys_First_bsp/
+[BSP build complete]
+[Qsys_First build complete]

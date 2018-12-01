@@ -1,0 +1,28 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\issp\trouble_detect_enable.qsys --block-symbol-file --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\issp\trouble_detect_enable --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading issp/trouble_detect_enable.qsys
+Progress: Reading input file
+Progress: Adding in_system_sources_probes_0 [altera_in_system_sources_probes 17.0]
+Progress: Parameterizing module in_system_sources_probes_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Magic_Boy\Desktop\stability\other\issp\trouble_detect_enable.qsys --synthesis=VERILOG --output-directory=C:\Users\Magic_Boy\Desktop\stability\other\issp\trouble_detect_enable\synthesis --family="Cyclone V" --part=5CEBA4F17I7
+Progress: Loading issp/trouble_detect_enable.qsys
+Progress: Reading input file
+Progress: Adding in_system_sources_probes_0 [altera_in_system_sources_probes 17.0]
+Progress: Parameterizing module in_system_sources_probes_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: trouble_detect_enable: Generating trouble_detect_enable "trouble_detect_enable" for QUARTUS_SYNTH
+Info: in_system_sources_probes_0: "trouble_detect_enable" instantiated altera_in_system_sources_probes "in_system_sources_probes_0"
+Info: trouble_detect_enable: Done "trouble_detect_enable" with 2 modules, 2 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

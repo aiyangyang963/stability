@@ -1,0 +1,19 @@
+`timescale 1ns / 1ns
+
+module fft_ads(
+	 input rst,
+	 input clk,
+	 output wire clk_500,
+	 
+	 input [15:0]Ch0_Data_ads1,
+	 input [15:0]Ch1_Data_ads1,
+	 input [15:0]Ch0_Data_ads2,
+	 input [15:0]Ch1_Data_ads2,
+	 
+	 output [15:0]Ch0_Dataf_ads1,
+	 output [15:0]Ch1_Dataf_ads1,
+	 output reg[47:0]Ch0_Dataf_ads2,
+	 output reg[47:0] ast_source_data_r,
+	 output [15:0]Ch1_Dataf_ads2
+	 
+    );

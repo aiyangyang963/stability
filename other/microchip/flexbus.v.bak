@@ -1,0 +1,494 @@
+`timescale 1 ns / 1 ns
+module flexbus(
+		inout	wire	[7:0]	K64_AD,
+		input		K64_ALE,
+		input		K64_CS0,
+		input 	K64_RW,
+		input		K64_CLK,
+
+		input clk,
+		input cs_ads2,
+		input [15:0]pkg_num_ads2,
+		input [15:0]receive_data_ads2,
+		
+		input [7:0]ALARM_Overview_Tflag_ads2,
+		input [7:0]ALARM_Ch03_Tfag_ads2,
+		input [7:0]ALARM_Ch03_Aflag_ads2,
+		input [15:0]Ch0_Data_ads2,
+		input [15:0]Ch1_Data_ads2,
+		input [15:0]Ch2_Data_ads2,
+		input [15:0]Ch3_Data_ads2,
+		
+		input cs_ads1,
+		input [15:0]pkg_num_ads1,
+		input [15:0]receive_data_ads1,
+		
+		input [7:0]ALARM_Overview_Tflag_ads1,
+		input [7:0]ALARM_Ch03_Tfag_ads1,
+		input [7:0]ALARM_Ch03_Aflag_ads1,
+		input [15:0]Ch0_Data_ads1,
+		input [15:0]Ch1_Data_ads1,
+		input [15:0]Ch2_Data_ads1,
+		input [15:0]Ch3_Data_ads1,
+		
+		input Ch0_Data_en,
+		input Ch1_Data_en,
+		input Ch2_Data_en,
+		input Ch3_Data_en,
+		
+		input [15:0]Ch0_Dataf_ads1,
+		input [15:0]Ch1_Dataf_ads1,
+		input [15:0]Ch0_Dataf_ads2,
+		input [15:0]Ch1_Dataf_ads2,
+		
+		input Ch1_Dataf_en_ads2,
+		input Ch0_Dataf_en_ads2,
+		input Ch1_Dataf_en_ads1,
+		input Ch0_Dataf_en_ads1,
+		
+		input [7:0]time_message_cnt,
+		input [7:0]year,
+		input [7:0]month,
+		input [7:0]day,
+		input [7:0]hour,
+		input [7:0]minute,
+		input [7:0]second
+		);
+	
+wire pos_Ch0_Data_en,neg_Ch0_Data_en;
+wire pos_Ch1_Data_en,neg_Ch1_Data_en;
+wire pos_Ch2_Data_en,neg_Ch2_Data_en;
+wire pos_Ch3_Data_en,neg_Ch3_Data_en;
+
+wire pos_Ch1_Dataf_en_ads2,neg_Ch1_Dataf_en_ads2;
+wire pos_Ch0_Dataf_en_ads2,neg_Ch0_Dataf_en_ads2;
+wire pos_Ch1_Dataf_en_ads1,neg_Ch1_Dataf_en_ads1;
+wire pos_Ch0_Dataf_en_ads1,neg_Ch0_Dataf_en_ads1;
+
+reg Ch0_Data_en_r0,Ch0_Data_en_r1,Ch0_Data_en_r2;
+reg Ch1_Data_en_r0,Ch1_Data_en_r1,Ch1_Data_en_r2;
+reg Ch2_Data_en_r0,Ch2_Data_en_r1,Ch2_Data_en_r2;
+reg Ch3_Data_en_r0,Ch3_Data_en_r1,Ch3_Data_en_r2;
+
+reg Ch1_Dataf_en_ads2_r0,Ch1_Dataf_en_ads2_r1,Ch1_Dataf_en_ads2_r2;
+reg Ch0_Dataf_en_ads2_r0,Ch0_Dataf_en_ads2_r1,Ch0_Dataf_en_ads2_r2;
+reg Ch1_Dataf_en_ads1_r0,Ch1_Dataf_en_ads1_r1,Ch1_Dataf_en_ads1_r2;
+reg Ch0_Dataf_en_ads1_r0,Ch0_Dataf_en_ads1_r1,Ch0_Dataf_en_ads1_r2;
+
+always@(posedge clk)
+	begin
+		Ch0_Data_en_r0<=Ch0_Data_en;
+		Ch0_Data_en_r1<=Ch0_Data_en_r0;
+		Ch0_Data_en_r2<=Ch0_Data_en_r1;
+		
+		Ch1_Data_en_r0<=Ch1_Data_en;
+		Ch1_Data_en_r1<=Ch1_Data_en_r0;
+		Ch1_Data_en_r2<=Ch1_Data_en_r1;
+		
+		Ch2_Data_en_r0<=Ch2_Data_en;
+		Ch2_Data_en_r1<=Ch2_Data_en_r0;
+		Ch2_Data_en_r2<=Ch2_Data_en_r1;
+		
+		Ch3_Data_en_r0<=Ch3_Data_en;
+		Ch3_Data_en_r1<=Ch3_Data_en_r0;
+		Ch3_Data_en_r2<=Ch3_Data_en_r1;
+		
+		Ch1_Dataf_en_ads2_r0<=Ch1_Dataf_en_ads2;
+		Ch1_Dataf_en_ads2_r1<=Ch1_Dataf_en_ads2_r0;
+		Ch1_Dataf_en_ads2_r2<=Ch1_Dataf_en_ads2_r1;
+		
+		Ch0_Dataf_en_ads2_r0<=Ch0_Dataf_en_ads2;
+		Ch0_Dataf_en_ads2_r1<=Ch0_Dataf_en_ads2_r0;
+		Ch0_Dataf_en_ads2_r2<=Ch0_Dataf_en_ads2_r1;
+		
+		Ch1_Dataf_en_ads1_r0<=Ch1_Dataf_en_ads1;
+		Ch1_Dataf_en_ads1_r1<=Ch1_Dataf_en_ads1_r0;
+		Ch1_Dataf_en_ads1_r2<=Ch1_Dataf_en_ads1_r1;
+		
+		Ch0_Dataf_en_ads1_r0<=Ch0_Dataf_en_ads1;
+		Ch0_Dataf_en_ads1_r1<=Ch0_Dataf_en_ads1_r0;
+		Ch0_Dataf_en_ads1_r2<=Ch0_Dataf_en_ads1_r1;
+	end
+
+assign pos_Ch0_Data_en=(~Ch0_Data_en_r2)&Ch0_Data_en_r1;
+assign pos_Ch1_Data_en=(~Ch1_Data_en_r2)&Ch1_Data_en_r1;
+assign pos_Ch2_Data_en=(~Ch2_Data_en_r2)&Ch2_Data_en_r1;
+assign pos_Ch3_Data_en=(~Ch3_Data_en_r2)&Ch3_Data_en_r1;
+
+assign pos_Ch1_Dataf_en_ads2=(~Ch1_Dataf_en_ads2_r2)&Ch1_Dataf_en_ads2_r1;
+assign pos_Ch0_Dataf_en_ads2=(~Ch0_Dataf_en_ads2_r2)&Ch0_Dataf_en_ads2_r1;
+assign pos_Ch1_Dataf_en_ads1=(~Ch1_Dataf_en_ads1_r2)&Ch1_Dataf_en_ads1_r1;
+assign pos_Ch0_Dataf_en_ads1=(~Ch0_Dataf_en_ads1_r2)&Ch0_Dataf_en_ads1_r1;
+
+assign neg_Ch0_Data_en=Ch0_Data_en_r2&(~Ch0_Data_en_r1); 
+assign neg_Ch1_Data_en=Ch1_Data_en_r2&(~Ch1_Data_en_r1); 
+assign neg_Ch2_Data_en=Ch2_Data_en_r2&(~Ch2_Data_en_r1); 
+assign neg_Ch3_Data_en=Ch3_Data_en_r2&(~Ch3_Data_en_r1); 
+
+assign neg_Ch1_Dataf_en_ads2=Ch1_Dataf_en_ads2_r2&(~Ch1_Dataf_en_ads2_r1); 
+assign neg_Ch0_Dataf_en_ads2=Ch0_Dataf_en_ads2_r2&(~Ch0_Dataf_en_ads2_r1); 
+assign neg_Ch1_Dataf_en_ads1=Ch1_Dataf_en_ads1_r2&(~Ch1_Dataf_en_ads1_r1); 
+assign neg_Ch0_Dataf_en_ads1=Ch0_Dataf_en_ads1_r2&(~Ch0_Dataf_en_ads1_r1); 
+	
+//send ads2 data to flexbus
+//wire pos_cs_ads2;
+//reg cs_ads2_r0,cs_ads2_r1,cs_ads2_r2;
+//always@(posedge clk)
+//	begin
+//		cs_ads2_r0<=cs_ads2;
+//		cs_ads2_r1<=cs_ads2_r0;
+//		cs_ads2_r2<=cs_ads2_r1;
+//	end
+//
+//assign pos_cs_ads2=(~cs_ads2_r2)&cs_ads2_r1;
+//assign neg_cs_ads2=cs_ads2_r2&(~cs_ads2_r1);   
+//
+//reg [1:0]ads2_rotater;
+// always @(posedge clk)
+//	begin
+//		if(pkg_num_ads2!=0)
+//			begin
+//				if(pos_cs_ads2)ads2_rotater<=ads2_rotater+1;
+//				else ads2_rotater<=ads2_rotater;
+//				
+//			end
+//		else
+//			begin
+//				if(pos_cs_ads2)ads2_rotater<=0;
+//				else ads2_rotater<=ads2_rotater;
+//				
+//			end
+//	end
+// always @(posedge clk)
+//	begin
+//		case(ads2_rotater)
+//			0:
+//				begin
+//					if(pos_cs_ads2)
+//						begin
+//							dat_temp_05<=receive_data_ads2[7:0];
+//							dat_temp_06<=receive_data_ads2[15:8];
+//						end
+//					else
+//						begin
+//							dat_temp_05<=dat_temp_05;
+//							dat_temp_06<=dat_temp_06;
+//						end
+//				end
+//			1:
+//				begin
+//					if(pos_cs_ads2)
+//						begin
+//							dat_temp_07<=receive_data_ads2[7:0];
+//							dat_temp_08<=receive_data_ads2[15:8];
+//						end
+//					else
+//						begin
+//							dat_temp_07<=dat_temp_07;
+//							dat_temp_08<=dat_temp_08;
+//						end
+//				end
+//			2:
+//				begin
+//					if(pos_cs_ads2)
+//						begin
+//							dat_temp_09<=receive_data_ads2[7:0];
+//							dat_temp_0a<=receive_data_ads2[15:8];
+//						end
+//					else
+//						begin
+//							dat_temp_09<=dat_temp_09;
+//							dat_temp_0a<=dat_temp_0a;
+//						end
+//				end
+//			3:
+//				begin
+//					if(pos_cs_ads2)
+//						begin
+//							dat_temp_0b<=receive_data_ads2[7:0];
+//							dat_temp_0c<=receive_data_ads2[15:8];
+//						end
+//					else
+//						begin
+//							dat_temp_0b<=dat_temp_0b;
+//							dat_temp_0c<=dat_temp_0c;
+//						end
+//				end
+//			default:
+//				begin
+//					dat_temp_05<=dat_temp_05;
+//					dat_temp_06<=dat_temp_06;
+//					dat_temp_07<=dat_temp_07;
+//					dat_temp_08<=dat_temp_08;
+//					dat_temp_09<=dat_temp_09;
+//					dat_temp_0a<=dat_temp_0a;
+//					dat_temp_0b<=dat_temp_0b;
+//					dat_temp_0c<=dat_temp_0c;
+//				end
+//		endcase
+//	end
+
+ //produce time message
+ reg [15:0]timecnt;
+ reg [7:0]year_r,month_r,day_r,hour_r,minute_r,second_r;
+ reg [15:0]msecond_r;
+ always @(posedge clk)
+	begin
+		if(time_message_cnt==0)
+			begin
+				year_r	<=year;
+				month_r	<=month;
+				day_r		<=day;
+				hour_r	<=hour;
+				minute_r	<=minute;
+				second_r	<=second;
+				msecond_r<=0;
+				timecnt	<=0;
+			end
+		else
+			begin
+				if(month_r==11)
+					begin
+						month_r<=0;
+						year_r <=year_r+1;
+					end
+				else
+					begin
+						year_r <=year_r;
+						if(day_r==30)
+							begin
+								day_r<=0;
+								month_r<=month_r+1;
+							end
+						else
+							begin
+								month_r<=month_r;
+								if(hour_r==23)
+									begin
+										day_r<=day_r+1;
+										hour_r<=0;
+									end
+								else
+									begin
+										day_r<=day_r;
+										if(minute_r==59)
+											begin
+												hour_r<=hour_r+1;
+												minute_r<=0;
+											end
+										else
+											begin
+												hour_r<=hour_r;
+												if(second_r==59)
+													begin
+														minute_r<=minute_r+1;
+														second_r<=0;
+													end
+												else
+													begin
+														minute_r<=minute_r;
+														if(msecond_r==999)
+															begin
+																second_r<=second_r+1;
+																msecond_r<=0;
+															end
+														else
+															begin
+																second_r<=second_r;//50_000*20ns=1ms--50Mhz clock
+																if(timecnt==50_000)
+																	begin
+																		timecnt<=0;
+																		msecond_r<=msecond_r+1;
+																	end
+																else
+																	begin
+																		msecond_r<=msecond_r;
+																		timecnt<=timecnt+1;
+																	end
+															end
+													end
+											end
+									end
+							end
+					end
+			end
+	end
+	
+ //send ads2 data to flexbus			
+(* syn_preserve = 1 *) reg  [7:0]dat_temp_00 = 8'h9a;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_01 = 8'h56;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_02 = year_r;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_03 = month_r;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_04 = day_r;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_05 = hour_r;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_06 = minute_r;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_07 = second_r;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_08 = msecond_r[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_09 = msecond_r[7:0];
+
+(* syn_preserve = 1 *) wire [7:0]dat_temp_0a = pkg_mun_ads1[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_0b = pkg_mun_ads2[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_0c = Ch0_Data_ads1[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_0d = Ch0_Data_ads1[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_0e = Ch1_Data_ads1[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_0f = Ch1_Data_ads1[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_10 = Ch0_Data_ads2[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_11 = Ch0_Data_ads2[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_12 = Ch1_Data_ads2[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_13 = Ch1_Data_ads2[7:0];
+ 
+(* syn_preserve = 1 *) wire [7:0]dat_temp_14 = pkg_mun_ads1_ch0;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_15 = pkg_mun_ads1_ch1;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_16 = pkg_mun_ads2_ch0;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_17 = pkg_mun_ads2_ch1;
+(* syn_preserve = 1 *) wire [7:0]dat_temp_18 = Ch0_Dataf_ads1[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_19 = Ch0_Dataf_ads1[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_1a = Ch1_Dataf_ads1[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_1b = Ch1_Dataf_ads1[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_1c = Ch0_Dataf_ads2[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_1d = Ch0_Dataf_ads2[7:0];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_1e = Ch1_Dataf_ads2[15:8];
+(* syn_preserve = 1 *) wire [7:0]dat_temp_1f = Ch1_Dataf_ads2[7:0];
+
+ reg [7:0]pkg_mun_ads1,pkg_mun_ads2 = 0;
+ reg [7:0]pkg_mun_ads1_ch0,pkg_mun_ads1_ch1,pkg_mun_ads2_ch0,pkg_mun_ads2_ch1 = 0;
+ 
+ always @(posedge clk)
+	begin
+		if(pos_Ch0_Data_en) pkg_mun_ads1<=pkg_mun_ads1+1;
+		else pkg_mun_ads1<=pkg_mun_ads1;
+		if(pos_Ch2_Data_en) pkg_mun_ads2<=pkg_mun_ads2+1;
+		else pkg_mun_ads2<=pkg_mun_ads2;
+		
+		if(pos_Ch0_Dataf_en_ads1) pkg_mun_ads1_ch0<=pkg_mun_ads1_ch0+1;
+		else pkg_mun_ads1_ch0<=pkg_mun_ads1_ch0;
+		if(pos_Ch1_Dataf_en_ads1) pkg_mun_ads1_ch1<=pkg_mun_ads1_ch1+1;
+		else pkg_mun_ads1_ch1<=pkg_mun_ads1_ch1;
+		if(pos_Ch0_Dataf_en_ads2) pkg_mun_ads2_ch0<=pkg_mun_ads2_ch0+1;
+		else pkg_mun_ads2_ch0<=pkg_mun_ads2_ch0;
+		if(pos_Ch1_Dataf_en_ads2) pkg_mun_ads2_ch1<=pkg_mun_ads2_ch1+1;
+		else pkg_mun_ads2_ch1<=pkg_mun_ads2_ch1;
+	end
+	
+ wire  [7:0]k64_ad_in;
+ reg   [7:0]k64_ad_out;
+ 
+ assign  k64_ad_in = K64_AD;
+ assign  K64_AD = ((~K64_ALE)&&(K64_RW))? k64_ad_out:8'bzzzz_zzzz;
+ 
+ reg [7:0]k64_address;
+ always @(posedge K64_CLK)
+	begin
+		if(K64_ALE)k64_address<=k64_ad_in;
+		else k64_address<=k64_address;
+	end
+ 
+ always @(*)
+	begin
+		case(k64_address)
+				8'h00:	k64_ad_out<=dat_temp_00;
+				8'h01:	k64_ad_out<=dat_temp_01;
+				8'h02:	k64_ad_out<=dat_temp_02;
+				8'h03:	k64_ad_out<=dat_temp_03;
+				8'h04:	k64_ad_out<=dat_temp_04;
+				8'h05:	k64_ad_out<=dat_temp_05;
+				8'h06:	k64_ad_out<=dat_temp_06;
+				8'h07:	k64_ad_out<=dat_temp_07;
+				8'h08:	k64_ad_out<=dat_temp_08;
+				8'h09:	k64_ad_out<=dat_temp_09;
+				8'h0a:	k64_ad_out<=dat_temp_0a;
+				8'h0b:	k64_ad_out<=dat_temp_0b;
+				8'h0c:	k64_ad_out<=dat_temp_0c;
+				8'h0d:	k64_ad_out<=dat_temp_0d;
+				8'h0e:	k64_ad_out<=dat_temp_0e;
+				8'h0f:	k64_ad_out<=dat_temp_0f;
+				8'h10:	k64_ad_out<=dat_temp_10;
+				8'h11:	k64_ad_out<=dat_temp_11;
+				8'h12:	k64_ad_out<=dat_temp_12;
+				8'h13:	k64_ad_out<=dat_temp_13;
+				8'h14:	k64_ad_out<=dat_temp_14;
+				8'h15:	k64_ad_out<=dat_temp_15;
+				8'h16:	k64_ad_out<=dat_temp_16;
+				8'h17:	k64_ad_out<=dat_temp_17;
+				8'h18:	k64_ad_out<=dat_temp_18;
+				8'h19:	k64_ad_out<=dat_temp_19;
+				8'h1a:   k64_ad_out<=dat_temp_1a;
+				8'h1b:   k64_ad_out<=dat_temp_1b;
+				8'h1c:   k64_ad_out<=dat_temp_1c;
+				8'h1d:   k64_ad_out<=dat_temp_1d;
+				8'h1e:   k64_ad_out<=dat_temp_1e;
+				8'h1f:   k64_ad_out<=dat_temp_1f;
+				default: k64_ad_out<=k64_ad_out;
+		endcase
+ end
+// reg [7:0]timer_cnt = 0;
+// always @(posedge K64_CLK)
+//	begin
+//		if(timer_cnt==100)timer_cnt<=0;
+//		else timer_cnt<=timer_cnt+1;
+//	end
+// 
+// always @(posedge K64_CLK)
+//	begin
+//		if(timer_cnt==100)begin
+//			dat_temp_00 <= ~dat_temp_00;
+//		   dat_temp_01 <= ~dat_temp_01;
+//		   dat_temp_02 <= ~dat_temp_02;
+//		   dat_temp_03 <= ~dat_temp_03;
+//		   dat_temp_04 <= ~dat_temp_04;
+//		   dat_temp_05 <= ~dat_temp_05;
+//		   dat_temp_06 <= ~dat_temp_06;
+//		   dat_temp_07 <= ~dat_temp_07;
+//		   dat_temp_08 <= ~dat_temp_08;
+//		   dat_temp_09 <= ~dat_temp_09;
+//		   dat_temp_0a <= ~dat_temp_0a;
+//		   dat_temp_0b <= ~dat_temp_0b;
+//		   dat_temp_0c <= ~dat_temp_0c;
+//		   dat_temp_0d <= ~dat_temp_0d;
+//		   dat_temp_0e <= ~dat_temp_0e;
+//		   dat_temp_0f <= ~dat_temp_0f;
+//		   dat_temp_10 <= ~dat_temp_10;
+//		   dat_temp_11 <= ~dat_temp_11;
+//		   dat_temp_12 <= ~dat_temp_12;
+//		   dat_temp_13 <= ~dat_temp_13;
+//		   dat_temp_14 <= ~dat_temp_14;
+//		   dat_temp_15 <= ~dat_temp_15;
+//		   dat_temp_16 <= ~dat_temp_16;
+//		   dat_temp_17 <= ~dat_temp_17;
+//		end
+//		else begin
+//			dat_temp_00 <= dat_temp_00;
+//		   dat_temp_01 <= dat_temp_01;
+//		   dat_temp_02 <= dat_temp_02;
+//		   dat_temp_03 <= dat_temp_03;
+//		   dat_temp_04 <= dat_temp_04;
+//		   dat_temp_05 <= dat_temp_05;
+//		   dat_temp_06 <= dat_temp_06;
+//		   dat_temp_07 <= dat_temp_07;
+//		   dat_temp_08 <= dat_temp_08;
+//		   dat_temp_09 <= dat_temp_09;
+//		   dat_temp_0a <= dat_temp_0a;
+//		   dat_temp_0b <= dat_temp_0b;
+//		   dat_temp_0c <= dat_temp_0c;
+//		   dat_temp_0d <= dat_temp_0d;
+//		   dat_temp_0e <= dat_temp_0e;
+//		   dat_temp_0f <= dat_temp_0f;
+//		   dat_temp_10 <= dat_temp_10;
+//		   dat_temp_11 <= dat_temp_11;
+//		   dat_temp_12 <= dat_temp_12;
+//		   dat_temp_13 <= dat_temp_13;
+//		   dat_temp_14 <= dat_temp_14;
+//		   dat_temp_15 <= dat_temp_15;
+//		   dat_temp_16 <= dat_temp_16;
+//		   dat_temp_17 <= dat_temp_17;
+//		end
+//	end
+// 
+//  always @(posedge K64_CLK)
+//	begin
+//		if(k64_address==8'h17)dat_temp_18<=0;
+//		else if(timer_cnt==100)dat_temp_18<=1;
+//		else dat_temp_18<=dat_temp_18;
+//	end
+ 
+endmodule

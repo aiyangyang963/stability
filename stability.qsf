@@ -1,0 +1,1021 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 64-Bit
+# Version 13.1.0 Build 162 10/23/2013 SJ Full Version
+# Date created = 19:27:46  September 22, 2016
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		acceleration_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CEBA4F17I7
+set_global_assignment -name TOP_LEVEL_ENTITY top
+set_global_assignment -name LAST_QUARTUS_VERSION "16.1.2 Standard Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
+set_global_assignment -name ENABLE_NCE_PIN OFF
+set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name STRATIXII_CONFIGURATION_DEVICE EPCQ256
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN ON
+set_global_assignment -name ON_CHIP_BITSTREAM_DECOMPRESSION ON
+set_global_assignment -name CONFIGURATION_VCCIO_LEVEL 3.3V
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ddr3_inst|pll0|pll_afi_clk -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ddr3_inst|pll0|pll_addr_cmd_clk
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ddr3_inst|pll0|pll_avl_clk
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ddr3_inst|pll0|pll_config_clk
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|p0|umemphy|ureset|phy_reset_mem_stable_n -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|p0|umemphy|ureset|phy_reset_n -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|s0|sequencer_rw_mgr_inst|rw_mgr_inst|rw_mgr_core_inst|rw_soft_reset_n -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[0] -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[0] -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[1] -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[1] -tag __ddr3_p0
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to ddr3_inst -tag __ddr3_p0
+set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to ddr3_inst|pll0|fbout -tag __ddr3_p0
+set_global_assignment -name USE_DLL_FREQUENCY_FOR_DQS_DELAY_CHAIN ON
+set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
+set_global_assignment -name ECO_REGENERATE_REPORT ON
+set_global_assignment -name IOBANK_VCCIO 3.3V -section_id 2A
+set_global_assignment -name STRATIXV_CONFIGURATION_SCHEME "ACTIVE SERIAL X4"
+set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ddr3_inst|ddr3_inst|pll0|pll_afi_clk -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to ddr3_inst|ddr3_inst|pll0|pll_addr_cmd_clk -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to ddr3_inst|ddr3_inst|pll0|pll_avl_clk -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to ddr3_inst|ddr3_inst|pll0|pll_config_clk -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|p0|umemphy|ureset|phy_reset_mem_stable_n -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|p0|umemphy|ureset|phy_reset_n -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|s0|sequencer_rw_mgr_inst|rw_mgr_inst|rw_mgr_core_inst|rw_soft_reset_n -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[0] -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[0] -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[1] -tag __ddr3_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|ddr3_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[1] -tag __ddr3_p0
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to ddr3_inst|ddr3_inst -tag __ddr3_p0
+set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to ddr3_inst|ddr3_inst|pll0|fbout -tag __ddr3_p0
+set_location_assignment PIN_F3 -to LED_FPGA0
+set_location_assignment PIN_F4 -to LED_FPGA1
+set_location_assignment PIN_A13 -to AD1_CS
+set_location_assignment PIN_E10 -to AD1_MISO
+set_location_assignment PIN_E9 -to AD1_MOSI
+set_location_assignment PIN_A12 -to AD1_SCLK
+set_location_assignment PIN_A15 -to AD2_CS
+set_location_assignment PIN_A14 -to AD2_MISO
+set_location_assignment PIN_D11 -to AD2_MOSI
+set_location_assignment PIN_C11 -to AD2_SCLK
+set_location_assignment PIN_P9 -to clk_in1
+set_location_assignment PIN_N11 -to clk_in2
+set_location_assignment PIN_F11 -to clk_in3
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+set_global_assignment -name EDA_TIME_SCALE "1 ns" -section_id eda_simulation
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH top_vlg_tst -section_id eda_simulation
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE signal_view.stp
+set_location_assignment PIN_B3 -to K64_ALE
+set_location_assignment PIN_B7 -to K64_CS0
+set_location_assignment PIN_D8 -to K64_AD[7]
+set_location_assignment PIN_A7 -to K64_AD[6]
+set_location_assignment PIN_B8 -to K64_AD[5]
+set_location_assignment PIN_A9 -to K64_AD[4]
+set_location_assignment PIN_A8 -to K64_AD[3]
+set_location_assignment PIN_A10 -to K64_AD[0]
+set_location_assignment PIN_C4 -to K64_AD[2]
+set_location_assignment PIN_C3 -to K64_AD[1]
+set_location_assignment PIN_N3 -to A7K
+set_location_assignment PIN_A3 -to K64_CLK
+set_location_assignment PIN_B6 -to K64_RW
+set_location_assignment PIN_B12 -to k64_spi_clk
+set_location_assignment PIN_B11 -to k64_spi_cs
+set_location_assignment PIN_C10 -to k64_spi_dout
+set_location_assignment PIN_C9 -to k64_spi_din
+set_location_assignment PIN_H4 -to uart_rx
+set_location_assignment PIN_E2 -to uart_tx
+set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 4
+set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_instance_assignment -name D5_DELAY 4 -to mem_dqs[0] -tag __mt41j128m16_p0
+set_instance_assignment -name D6_DELAY 0 -to mem_dqs[0] -tag __mt41j128m16_p0
+set_instance_assignment -name D5_DELAY 4 -to mem_dqs[1] -tag __mt41j128m16_p0
+set_instance_assignment -name D6_DELAY 0 -to mem_dqs[1] -tag __mt41j128m16_p0
+set_instance_assignment -name D5_DELAY 4 -to mem_dqs_n[0] -tag __mt41j128m16_p0
+set_instance_assignment -name D6_DELAY 0 -to mem_dqs_n[0] -tag __mt41j128m16_p0
+set_instance_assignment -name D5_DELAY 4 -to mem_dqs_n[1] -tag __mt41j128m16_p0
+set_instance_assignment -name D6_DELAY 0 -to mem_dqs_n[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[0] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[2] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[3] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[4] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[5] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[6] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[7] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[8] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[9] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[10] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[11] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[12] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[13] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[14] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dq[15] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dm[0] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dm[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dqs[0] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dqs[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dqs_n[0] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_dqs_n[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[0] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[10] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[11] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[12] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[13] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[2] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[3] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[4] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[5] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[6] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[7] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[8] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_a[9] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_ba[0] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_ba[1] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_ba[2] -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_cs_n -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_we_n -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_ras_n -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_cas_n -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_odt -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_cke -tag __mt41j128m16_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to mem_reset_n -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ddr3_inst|mt41j128m16_inst|pll0|pll_afi_clk -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to ddr3_inst|mt41j128m16_inst|pll0|pll_addr_cmd_clk -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to ddr3_inst|mt41j128m16_inst|pll0|pll_avl_clk -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to ddr3_inst|mt41j128m16_inst|pll0|pll_config_clk -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|p0|umemphy|ureset|phy_reset_mem_stable_n -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|p0|umemphy|ureset|phy_reset_n -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|s0|sequencer_rw_mgr_inst|rw_mgr_inst|rw_mgr_core_inst|rw_soft_reset_n -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[0] -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[0] -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[1] -tag __mt41j128m16_p0
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to ddr3_inst|mt41j128m16_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[1] -tag __mt41j128m16_p0
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to ddr3_inst|mt41j128m16_inst -tag __mt41j128m16_p0
+set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to ddr3_inst|mt41j128m16_inst|pll0|fbout -tag __mt41j128m16_p0
+set_location_assignment PIN_R14 -to mem_a[13]
+set_location_assignment PIN_T7 -to mem_a[12]
+set_location_assignment PIN_T14 -to mem_a[11]
+set_location_assignment PIN_P8 -to mem_a[10]
+set_location_assignment PIN_M8 -to mem_a[9]
+set_location_assignment PIN_T10 -to mem_a[8]
+set_location_assignment PIN_R16 -to mem_a[7]
+set_location_assignment PIN_T12 -to mem_a[6]
+set_location_assignment PIN_P16 -to mem_a[5]
+set_location_assignment PIN_T4 -to mem_a[4]
+set_location_assignment PIN_P14 -to mem_a[3]
+set_location_assignment PIN_R10 -to mem_a[2]
+set_location_assignment PIN_T15 -to mem_a[1]
+set_location_assignment PIN_R11 -to mem_a[0]
+set_location_assignment PIN_R12 -to mem_ba[2]
+set_location_assignment PIN_T13 -to mem_ba[1]
+set_location_assignment PIN_M10 -to mem_ba[0]
+set_location_assignment PIN_D14 -to mem_cas_n
+set_location_assignment PIN_R7 -to mem_cke
+set_location_assignment PIN_M13 -to mem_cs_n
+set_location_assignment PIN_F15 -to mem_dm[1]
+set_location_assignment PIN_H16 -to mem_dm[0]
+set_location_assignment PIN_C16 -to mem_dq[15]
+set_location_assignment PIN_E12 -to mem_dq[14]
+set_location_assignment PIN_D16 -to mem_dq[13]
+set_location_assignment PIN_C15 -to mem_dq[12]
+set_location_assignment PIN_E16 -to mem_dq[11]
+set_location_assignment PIN_D13 -to mem_dq[10]
+set_location_assignment PIN_F14 -to mem_dq[9]
+set_location_assignment PIN_B16 -to mem_dq[8]
+set_location_assignment PIN_L14 -to mem_dq[7]
+set_location_assignment PIN_K16 -to mem_dq[6]
+set_location_assignment PIN_N16 -to mem_dq[5]
+set_location_assignment PIN_K15 -to mem_dq[4]
+set_location_assignment PIN_J14 -to mem_dq[3]
+set_location_assignment PIN_J16 -to mem_dq[2]
+set_location_assignment PIN_L15 -to mem_dq[1]
+set_location_assignment PIN_G16 -to mem_dq[0]
+set_location_assignment PIN_K12 -to mem_dqs[0]
+set_location_assignment PIN_J12 -to mem_dqs_n[0]
+set_location_assignment PIN_H13 -to mem_dqs[1]
+set_location_assignment PIN_G13 -to mem_dqs_n[1]
+set_location_assignment PIN_L10 -to mem_odt
+set_location_assignment PIN_L9 -to mem_ras_n
+set_location_assignment PIN_N14 -to mem_reset_n
+set_location_assignment PIN_P13 -to mem_we_n
+set_location_assignment PIN_R15 -to oct_rzqin
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[13]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[12]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[11]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[10]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[9]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[8]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[7]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[6]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[5]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[4]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[3]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[2]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_a[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_ba[2]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_ba[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_ba[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_cas_n
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[13]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[12]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_cas_n
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_ba[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_ba[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_ba[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_ba
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to mem_a
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_ck
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_cke
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_cs_n
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dm[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dm[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[15]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[14]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[13]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[12]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[11]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[10]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[9]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[8]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[7]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[6]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[5]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[4]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[3]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[2]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_dq[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_dqs[1]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_dqs[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_dqs
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_odt
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to mem_ras_n
+set_instance_assignment -name IO_STANDARD "SSTL-15" -to mem_we_n
+set_instance_assignment -name IO_STANDARD "1.5 V" -to mem_reset_n
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_ck_n[0]
+set_location_assignment PIN_M11 -to mem_ck[0]
+set_location_assignment PIN_M12 -to mem_ck_n[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15" -to oct_rzqin
+set_instance_assignment -name IO_STANDARD "SSTL-15" -to clk_in2
+set_instance_assignment -name IO_STANDARD "1.5 V" -to clk_in1
+set_instance_assignment -name IO_STANDARD "1.5 V" -to A7K
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_dqs_n[1]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to mem_dqs_n[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[2]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[2]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[3]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[3]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[4]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[4]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[5]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[5]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[6]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[6]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[7]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[7]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[8]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[8]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[9]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[9]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[10]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[10]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[11]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[11]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[12]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[12]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[13]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[13]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[14]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[14]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dq[15]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dq[15]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dqs[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dqs[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dqs[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dqs[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dqs_n[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dqs_n[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dqs_n[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dqs_n[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to mem_dqs
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dm[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to mem_dm[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to mem_ck[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to mem_ck_n[0]
+set_global_assignment -name SAVE_DISK_SPACE OFF
+set_global_assignment -name ALLOW_SHIFT_REGISTER_MERGING_ACROSS_HIERARCHIES OFF
+set_global_assignment -name DISABLE_REGISTER_MERGING_ACROSS_HIERARCHIES ON
+set_location_assignment PIN_K5 -to ds3231_scl
+set_location_assignment PIN_J1 -to ds3231_sda
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
+set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name VERILOG_INPUT_VERSION VERILOG_2001
+set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
+set_location_assignment PIN_G1 -to key
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD1_CS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD1_MISO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD1_MOSI
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD1_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD2_CS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD2_MISO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD2_MOSI
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to AD2_SCLK
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name EDA_TEST_BENCH_NAME top_vlg_tst -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id top_vlg_tst
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME top_vlg_tst -section_id top_vlg_tst
+set_global_assignment -name EDA_TEST_BENCH_FILE simulation/modelsim/top.vt -section_id top_vlg_tst
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=8192" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=8192" -section_id auto_signaltap_0
+set_location_assignment PIN_H5 -to clk_out2
+set_location_assignment PIN_H3 -to clk_out3
+set_location_assignment PIN_G15 -to clk_out4
+set_location_assignment PIN_F2 -to clk_out5
+set_location_assignment PIN_K14 -to clk_out1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk_out2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk_out3
+set_instance_assignment -name IO_STANDARD "1.5 V" -to clk_out1
+set_instance_assignment -name IO_STANDARD "1.5 V" -to clk_out4
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk_out5
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "microchip_interact:U5|flexbus:U1|K64_AD[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "microchip_interact:U5|flexbus:U1|K64_AD[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "microchip_interact:U5|flexbus:U1|K64_AD[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "microchip_interact:U5|flexbus:U1|K64_AD[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "microchip_interact:U5|flexbus:U1|K64_AD[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "microchip_interact:U5|flexbus:U1|K64_AD[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "microchip_interact:U5|flexbus:U1|K64_AD[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "microchip_interact:U5|flexbus:U1|K64_AD[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "microchip_interact:U5|flexbus:U1|K64_ALE" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "microchip_interact:U5|flexbus:U1|K64_CS0" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "microchip_interact:U5|flexbus:U1|K64_RW" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "microchip_interact:U5|flexbus:U1|K64_AD[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "microchip_interact:U5|flexbus:U1|K64_AD[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "microchip_interact:U5|flexbus:U1|K64_AD[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "microchip_interact:U5|flexbus:U1|K64_AD[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "microchip_interact:U5|flexbus:U1|K64_AD[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "microchip_interact:U5|flexbus:U1|K64_AD[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "microchip_interact:U5|flexbus:U1|K64_AD[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "microchip_interact:U5|flexbus:U1|K64_AD[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "microchip_interact:U5|flexbus:U1|K64_ALE" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "microchip_interact:U5|flexbus:U1|K64_CS0" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "microchip_interact:U5|flexbus:U1|K64_RW" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "sys_control:U0|clk_50m" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[20]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[21]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[22]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[23]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[24]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[25]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[26]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[27]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[28]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[29]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[30]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[31]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[32]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[33]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[34]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[35]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[36]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[37]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[38]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[39]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[40]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[41]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[42]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[43]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[44]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[45]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[46]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[47]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[48]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[49]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[50]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[51]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[52]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[53]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[54]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[55]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[56]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[57]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[58]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[59]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[60]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[61]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[62]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[63]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|empty" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|full" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[86] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[87] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[88] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[89] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[20]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[90] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[21]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[91] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[22]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[92] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[23]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[93] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[24]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[94] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[25]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[95] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[26]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[96] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[27]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[97] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[28]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[98] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[29]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[99] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[100] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[30]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[101] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[31]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[102] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[32]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[103] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[33]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[104] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[34]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[105] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[35]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[106] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[36]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[107] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[37]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[108] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[38]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[109] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[39]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[110] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[111] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[40]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[112] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[41]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[113] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[42]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[114] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[43]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[115] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[44]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[116] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[45]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[117] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[46]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[118] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[47]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[119] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[48]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[120] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[49]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[121] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[122] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[50]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[123] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[51]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[124] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[52]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[125] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[53]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[126] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[54]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[127] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[55]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[128] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[56]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[129] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[57]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[130] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[58]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[131] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[59]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[132] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[133] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[60]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[134] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[61]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[135] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[62]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[136] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[63]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[137] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[138] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[139] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[140] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[141] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|rdreq" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[20]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[21]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[22]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[23]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[24]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[25]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[26]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[27]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[28]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[29]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[30]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[31]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[32]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[33]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[34]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[35]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[36]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[37]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[38]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[39]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[40]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[41]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[42]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[43]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[44]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[45]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[46]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[47]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[48]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[49]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[50]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[51]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[52]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[53]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[54]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[55]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[56]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[57]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[58]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[59]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[60]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[61]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[62]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[63]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|data[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|empty" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|full" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[20]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[90] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[21]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[91] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[22]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[92] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[23]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[93] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[24]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[94] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[25]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[26]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[27]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[28]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[29]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[99] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[100] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[30]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[101] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[31]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[102] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[32]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[103] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[33]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[104] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[34]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[105] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[35]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[106] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[36]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[107] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[37]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[108] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[38]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[109] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[39]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[110] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[111] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[40]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[112] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[41]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[113] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[42]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[114] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[43]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[115] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[44]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[116] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[45]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[117] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[46]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[118] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[47]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[119] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[48]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[120] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[49]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[121] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[122] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[50]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[123] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[51]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[124] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[52]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[125] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[53]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[126] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[54]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[127] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[55]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[128] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[56]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[129] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[57]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[130] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[58]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[131] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[59]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[132] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[133] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[60]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[134] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[61]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[135] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[62]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[136] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[63]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[137] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[138] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[139] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[140] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|q[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[141] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|rdreq" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_global_assignment -name QSYS_FILE other/issp/read_buffer.qsys
+set_global_assignment -name VERILOG_FILE other/fft/fft_control.v
+set_global_assignment -name VERILOG_FILE other/fft/fft_ads.v
+set_global_assignment -name QSYS_FILE other/fft/fft_ip/fft.qsys
+set_global_assignment -name QSYS_FILE other/nco/signal_band_internalL.qsys
+set_global_assignment -name QSYS_FILE other/nco/signal_band_internal.qsys
+set_global_assignment -name QSYS_FILE other/nco/signal_band_externalL.qsys
+set_global_assignment -name QSYS_FILE other/nco/signal_band_external.qsys
+set_global_assignment -name QSYS_FILE other/issp/issp_dat_abs.qsys
+set_global_assignment -name QSYS_FILE other/issp/ddr_ads_contol.qsys
+set_global_assignment -name QIP_FILE other/issp/ds3231_value/synthesis/ds3231_value.qip
+set_global_assignment -name QIP_FILE other/issp/ds3231_inikey/synthesis/ds3231_inikey.qip
+set_global_assignment -name QIP_FILE other/Qsys_First/synthesis/Qsys_system.qip
+set_global_assignment -name VERILOG_FILE other/sys/top.v
+set_global_assignment -name VERILOG_FILE other/sys/sys_rst.v
+set_global_assignment -name VERILOG_FILE other/sys/LED.v
+set_global_assignment -name QIP_FILE other/filter/fir_ii/fir_2_10hz.qip
+set_global_assignment -name VERILOG_FILE other/microchip/K64_SPI_SLAVE.v
+set_global_assignment -name VERILOG_FILE other/microchip/flexbus.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_user_control.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/ddr_control_test_brust8.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/ddr_control_read_allmem.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/ddr_control_ads_minute5.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_scc_sv_wrapper.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/sequencer_scc_sv_phase_decode.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_scc_siii_wrapper.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/sequencer_scc_siii_phase_decode.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/sequencer_scc_reg_file.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_scc_mgr.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_scc_acv_wrapper.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/sequencer_scc_acv_phase_decode.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_reg_file.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_phy_mgr.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/sequencer_data_mgr.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_write_decoder.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_read_datapath.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_ram_csr.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_ram.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_pattern_fifo.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_lfsr72.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_lfsr36.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_lfsr12.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_jumplogic.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_inst_ROM_reg.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_inst_ROM_no_ifdef_params.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/rw_manager_generic.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_dm_decoder.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_di_buffer_wrap.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_di_buffer.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_ddr3.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_datamux.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_data_decoder.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_data_broadcast.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/rw_manager_core.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_bitcheck.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_ac_ROM_reg.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/rw_manager_ac_ROM_no_ifdef_params.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_rsp_mux_002.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_rsp_mux_001.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_rsp_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_rsp_demux_005.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_rsp_demux_003.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_router_008.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_router_006.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_router_003.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_router_002.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_router_001.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_router.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_cmd_mux_005.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_cmd_mux_003.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_cmd_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_cmd_demux_002.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_cmd_demux_001.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_cmd_demux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0_avalon_st_adapter.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_s0_mm_interconnect_0.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_s0_irq_mapper.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_s0.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_pll0.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_write_datapath.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_p0_simple_ddio_out.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_reset_sync.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_reset.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_read_valid_selector.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_p0_read_datapath.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_p0_phy_csr.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_new_io_pads.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_p0_memphy.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_iss_probe.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_fr_cycle_shifter.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_fr_cycle_extender.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_flop_mem.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_p0_core_shadow_registers.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_clock_pair_generator.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_altdqdqs.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_addr_cmd_pads.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_addr_cmd_datapath.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_p0_acv_ldc.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_p0.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_mm_interconnect_0.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_dmaster_timing_adt.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_dmaster_p2b_adapter.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/mt41j128m16_dmaster_b2p_adapter.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_dmaster.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_c0.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_0002.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_std_synchronizer_nocut.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_reset_synchronizer.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_reset_controller.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_traffic_limiter.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_slave_translator.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_slave_agent.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_reorder_memory.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_master_translator.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_master_agent.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_burst_uncompressor.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_merlin_arbitrator.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_mem_if_sequencer_rst.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_mem_if_sequencer_mem_no_ifdef_params.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_mem_if_sequencer_cpu_cv_synth_cpu_inst_test_bench.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_mem_if_sequencer_cpu_cv_synth_cpu_inst.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_mem_if_oct_cyclonev.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_mem_if_dll_cyclonev.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_jtag_streaming.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_jtag_sld_node.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_jtag_dc_streaming.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altera_avalon_st_pipeline_stage.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_pipeline_base.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_packets_to_bytes.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_jtag_interface.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_idle_remover.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_idle_inserter.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_clock_crosser.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_st_bytes_to_packets.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_sc_fifo.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_packets_to_master.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/altera_avalon_mm_bridge.v
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/altdq_dqs2_acv_cyclonev.sv
+set_global_assignment -name SYSTEMVERILOG_FILE other/mt41j128m16/alt_mem_if_nextgen_ddr3_controller_core.sv
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_wdata_path.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_timing_param.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_tbp.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_sideband.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_rdwr_data_tmg.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_rdata_path.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_rank_timer.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_odt_gen.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_mm_st_converter.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_lpddr2_addr_cmd.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_list.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_input_if.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_fifo.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_encoder_decoder_wrapper.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_encoder_64_syn.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_encoder_32_syn.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_encoder.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_decoder_64_syn.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_decoder_32_syn.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ecc_decoder.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ddr3_odt_gen.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_ddr2_odt_gen.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_dataid_manager.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_csr.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_controller_st_top.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_controller.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_cmd_gen.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_burst_tracking.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_burst_gen.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_buffer_manager.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_buffer.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_axi_st_converter.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_arbiter.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_addr_cmd_wrap.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/alt_mem_ddrx_addr_cmd.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/afi_mux_ddr3_ddrx.v
+set_global_assignment -name VERILOG_FILE other/uart/uart_top.v
+set_global_assignment -name VERILOG_FILE other/uart/uart_control.v
+set_global_assignment -name VERILOG_FILE other/ads/V11_SPI.v
+set_global_assignment -name VERILOG_FILE other/ads/AD2.v
+set_global_assignment -name QIP_FILE other/uart/uart_115200/synthesis/uart_115200.qip
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/pass_zero_max.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/pass_zero_alarm.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/pass_zero_detect.v
+set_global_assignment -name VERILOG_FILE other/ads/ads1_dat_acquire.v
+set_global_assignment -name VERILOG_FILE other/ads/ads2_dat_acquire.v
+set_global_assignment -name VERILOG_FILE other/ds3231m_i2c/ds3231_i2c.v
+set_global_assignment -name VERILOG_FILE other/ds3231m_i2c/i2c_write.v
+set_global_assignment -name VERILOG_FILE other/ds3231m_i2c/gen_divd.v
+set_global_assignment -name SIGNALTAP_FILE ds3231m_i2c.stp
+set_global_assignment -name VERILOG_FILE other/ds3231m_i2c/i2c_read.v
+set_global_assignment -name SIGNALTAP_FILE ddr_test.stp
+set_global_assignment -name VERILOG_FILE other/ds3231m_i2c/ds3231_control.v
+set_global_assignment -name SIGNALTAP_FILE ads_to_uart.stp
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/mt41j128m16_control.v
+set_global_assignment -name VERILOG_FILE other/ads/ads_top.v
+set_global_assignment -name VERILOG_FILE other/microchip/microchip_interact.v
+set_global_assignment -name SIGNALTAP_FILE ads2_to_flexbus.stp
+set_global_assignment -name VERILOG_FILE other/ads/ads_dat_decimate.v
+set_global_assignment -name SOURCE_FILE db/stability.cmp.rdb
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/shake_detect.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/peak_detect.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/search_peak_detect.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/peak_alarm.v
+set_global_assignment -name SIGNALTAP_FILE "filter_to uart.stp"
+set_global_assignment -name VERILOG_FILE other/sys/top_th.v
+set_global_assignment -name VERILOG_FILE other/nco/signal_produce.v
+set_global_assignment -name VERILOG_FILE other/sys/clock_lowfrquency.v
+set_global_assignment -name VERILOG_FILE other/sys/clock_lf.v
+set_global_assignment -name QIP_FILE other/filter/fir_ii/fir_2_10hz_nco.qip
+set_global_assignment -name SIP_FILE other/filter/fir_ii/fir_2_10hz_nco.sip
+set_global_assignment -name VERILOG_FILE other/filter/filter.v
+set_global_assignment -name VERILOG_FILE other/filter/filter_outersignal.v
+set_global_assignment -name VERILOG_FILE other/filter/filter_intersignal.v
+set_global_assignment -name VERILOG_FILE other/signal_source/signal_source.v
+set_global_assignment -name SIGNALTAP_FILE ads_dat.stp
+set_global_assignment -name SIGNALTAP_FILE signal_produce.stp
+set_global_assignment -name VERILOG_FILE other/signal_detect/signal_detect.v
+set_global_assignment -name VERILOG_FILE other/signal_detect/disconnect_detect.v
+set_global_assignment -name VERILOG_FILE other/signal_detect/trouble_detect.v
+set_global_assignment -name VERILOG_FILE other/timer/timer.v
+set_global_assignment -name SOURCE_FILE output_files/Spf1.spf
+set_global_assignment -name VERILOG_FILE other/signal_detect/incident_process.v
+set_global_assignment -name QIP_FILE other/pll/pll_L.qip
+set_global_assignment -name SIP_FILE other/pll/pll_L.sip
+set_global_assignment -name QIP_FILE other/pll/pll_H.qip
+set_global_assignment -name SIP_FILE other/pll/pll_H.sip
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/baseline_available_detect.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/pass_baseline_pole.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/search_alarm.v
+set_global_assignment -name SOURCE_FILE output_files/signal_abs.spf
+set_global_assignment -name QIP_FILE other/arithmetic/peak_divide.qip
+set_global_assignment -name QIP_FILE other/arithmetic/filter_out_mult.qip
+set_global_assignment -name QIP_FILE other/arithmetic/filter_out_divide.qip
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/average_base2.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/average_base5.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/average_base6.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/filter_scale_divisor.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/zero_swing_detect.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/search_pole.v
+set_global_assignment -name VERILOG_FILE other/vibrate_dect/generate_alarm.v
+set_global_assignment -name SIGNALTAP_FILE signal_view.stp
+set_global_assignment -name VERILOG_FILE other/ds3231m_i2c/ds3231_initialize.v
+set_global_assignment -name VERILOG_FILE other/signal_process/signal_process.v
+set_global_assignment -name VERILOG_FILE other/signal_source/signal_move.v
+set_global_assignment -name VERILOG_FILE other/signal_store/signal_store.v
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/ddr_control_ads.v
+set_global_assignment -name VERILOG_FILE other/signal_detect/edge_detect.v
+set_global_assignment -name VERILOG_FILE other/sys/sys_control.v
+set_global_assignment -name QIP_FILE other/microchip/ads_to_flex_fifo.qip
+set_global_assignment -name VERILOG_FILE other/mt41j128m16/ddr_control_alarm.v
+set_global_assignment -name QIP_FILE other/microchip/ddr_befor5_fifo.qip
+set_global_assignment -name QIP_FILE other/microchip/ddr_after5_fifo.qip
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[142] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[143] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[144] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[145] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[146] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[147] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[148] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|wrreq" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[142] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[143] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[144] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[145] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[146] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[147] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|usedw[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[148] -to "microchip_interact:U5|flexbus:U1|ads_to_flex_fifo:Buf1|wrreq" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=149" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=149" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=149" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=474" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_global_assignment -name CDF_FILE output_files/stability.cdf
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/signal_view_auto_stripped.stp
